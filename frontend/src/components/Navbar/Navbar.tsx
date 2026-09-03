@@ -30,12 +30,12 @@ export const Navbar: React.FC = () => {
 
           {/* Navigation Links */}
           <div className="hidden md:flex items-center space-x-gutter">
-            <Link to="/" class={navLinkClass('/')}>Home</Link>
-            <Link to="/subjects" class={navLinkClass('/subjects')}>Subjects</Link>
-            <Link to="/thinkers" class={navLinkClass('/thinkers')}>Thinkers</Link>
-            <Link to="/exam-prep/important-questions" class={navLinkClass('/exam-prep/important-questions')}>Important Questions</Link>
-            <Link to="/exam-prep/pyqs" class={navLinkClass('/exam-prep/pyqs')}>PYQs</Link>
-            <Link to="/resources" class={navLinkClass('/resources')}>Resources</Link>
+            <Link to="/" className={navLinkClass('/')}>Home</Link>
+            <Link to="/subjects" className={navLinkClass('/subjects')}>Subjects</Link>
+            <Link to="/thinkers" className={navLinkClass('/thinkers')}>Thinkers</Link>
+            <Link to="/exam-prep/important-questions" className={navLinkClass('/exam-prep/important-questions')}>Important Questions</Link>
+            <Link to="/exam-prep/pyqs" className={navLinkClass('/exam-prep/pyqs')}>PYQs</Link>
+            <Link to="/resources" className={navLinkClass('/resources')}>Resources</Link>
           </div>
 
           {/* Actions & Search */}

@@ -2,7 +2,7 @@ import api from './client';
 
 export interface Unit {
   unit_number: number;
-  title: str;
+  title: string;
 }
 
 export interface Subject {

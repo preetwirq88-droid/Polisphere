@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { searchAll, SearchResults } from '../../api/search';
+import { searchAll } from '../../api/search';
+import type { SearchResults } from '../../api/search';
 
 interface SearchBarModalProps {
   onClose: () => void;

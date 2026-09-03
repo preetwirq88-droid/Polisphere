@@ -14,7 +14,7 @@ export interface AdminProfile {
   created_at?: string;
 }
 
-export const adminLogin = async (email: string, password: str): Promise<LoginResponse> => {
+export const adminLogin = async (email: string, password: string): Promise<LoginResponse> => {
   const res = await api.post('/admin/login', { email, password });
   return res.data;
 };

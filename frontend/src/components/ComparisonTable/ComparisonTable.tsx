@@ -1,5 +1,5 @@
 import React from 'react';
-import { ComparisonTable as ComparisonTableType } from '../../api/notes';
+import type { ComparisonTable as ComparisonTableType } from '../../api/notes';
 
 interface ComparisonTableProps {
   data: ComparisonTableType;

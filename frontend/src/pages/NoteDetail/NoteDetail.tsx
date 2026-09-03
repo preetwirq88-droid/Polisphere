@@ -83,7 +83,7 @@ export const NoteDetail: React.FC = () => {
           </header>
 
           {/* Sections Rendered */}
-          {note.sections.map((sec, idx) => (
+          {note.sections.map((sec) => (
             <section key={sec.anchor} id={sec.anchor} className="space-y-sm">
               <h2 className="font-headline-md text-headline-md text-on-surface">
                 {sec.heading}

@@ -19,7 +19,7 @@ export const SubjectDetail: React.FC = () => {
     enabled: !!slug,
   });
 
-  const { data: notes = [], isLoading: isNotesLoading } = useQuery({
+  const { data: notes = [] } = useQuery({
     queryKey: ['notes-subject', slug, difficultyFilter, statusFilter],
     queryFn: () =>
       getNotes({

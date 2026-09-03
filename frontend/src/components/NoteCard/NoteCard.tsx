@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Note } from '../../api/notes';
+import type { Note } from '../../api/notes';
 
 interface NoteCardProps {
   note: Note;

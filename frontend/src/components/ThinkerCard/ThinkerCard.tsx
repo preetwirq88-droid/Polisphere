@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Thinker } from '../../api/thinkers';
+import type { Thinker } from '../../api/thinkers';
 
 interface ThinkerCardProps {
   thinker: Thinker;

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Subject } from '../../api/subjects';
+import type { Subject } from '../../api/subjects';
 
 interface SubjectCardProps {
   subject: Subject;

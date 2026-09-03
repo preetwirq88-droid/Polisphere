@@ -1,12 +1,13 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { adminLogin, getAdminProfile, AdminProfile } from '../api/adminAuth';
+import { adminLogin, getAdminProfile } from '../api/adminAuth';
+import type { AdminProfile } from '../api/adminAuth';
 
 interface AdminAuthContextType {
   token: string | null;
   admin: AdminProfile | null;
   isAuthenticated: boolean;
   isLoading: boolean;
-  login: (email: string, password: str) => Promise<void>;
+  login: (email: string, password: string) => Promise<void>;
   logout: () => void;
 }
 
@@ -33,7 +34,7 @@ export const AdminAuthProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     initAuth();
   }, [token]);
 
-  const login = async (email: string, password: str) => {
+  const login = async (email: string, password: string) => {
     const res = await adminLogin(email, password);
     localStorage.setItem('admin_token', res.access_token);
     setToken(res.access_token);

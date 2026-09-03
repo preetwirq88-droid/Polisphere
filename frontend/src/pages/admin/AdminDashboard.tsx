@@ -4,28 +4,23 @@ import { useAdminAuth } from '../../context/AdminAuthContext';
 import {
   adminGetSubjects,
   adminCreateSubject,
-  adminUpdateSubject,
   adminDeleteSubject,
-  Subject,
 } from '../../api/subjects';
 import {
   adminGetNotes,
   adminCreateNote,
   adminUpdateNote,
   adminDeleteNote,
-  Note,
 } from '../../api/notes';
 import {
   adminGetThinkers,
   adminCreateThinker,
   adminDeleteThinker,
-  Thinker,
 } from '../../api/thinkers';
 import {
   adminGetImportantQuestions,
   adminCreateImportantQuestion,
   adminDeleteImportantQuestion,
-  ImportantQuestion,
 } from '../../api/importantQuestions';
 
 type Tab = 'subjects' | 'notes' | 'thinkers' | 'questions';
@@ -42,8 +37,8 @@ export const AdminDashboard: React.FC = () => {
     slug: '',
     subject_id: '',
     unit_number: 1,
-    difficulty: 'introductory',
-    status: 'published',
+    difficulty: 'introductory' as 'introductory' | 'advanced',
+    status: 'published' as 'draft' | 'in_progress' | 'published',
     reading_time_minutes: 10,
     sections: [{ anchor: 'introduction', heading: 'Introduction', body: 'Write analysis content here...' }],
   });
@@ -71,7 +66,7 @@ export const AdminDashboard: React.FC = () => {
     subject_id: '',
     unit_number: 1,
     topic: 'Social Contract Theory',
-    difficulty: 'intermediate',
+    difficulty: 'intermediate' as 'beginner' | 'intermediate' | 'advanced',
     question: '',
   });
 

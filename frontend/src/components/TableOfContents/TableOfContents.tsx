@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { NoteSection } from '../../api/notes';
+import type { NoteSection } from '../../api/notes';
 
 interface TableOfContentsProps {
   sections: NoteSection[];
