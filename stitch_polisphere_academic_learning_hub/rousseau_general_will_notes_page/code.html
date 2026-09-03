@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>POLISPHERE - Rousseau: General Will</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;family=Playfair+Display:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-dim": "#d2d9f4",
+                      "inverse-surface": "#283044",
+                      "primary-fixed-dim": "#b7c4fd",
+                      "on-secondary-container": "#fefcff",
+                      "primary": "#000f3f",
+                      "error-container": "#ffdad6",
+                      "secondary-fixed-dim": "#b4c5ff",
+                      "on-tertiary-fixed": "#1e1b16",
+                      "on-tertiary": "#ffffff",
+                      "tertiary": "#16140f",
+                      "surface-container-low": "#f2f3ff",
+                      "on-error": "#ffffff",
+                      "surface-variant": "#dae2fd",
+                      "primary-fixed": "#dce1ff",
+                      "surface-container-high": "#e2e7ff",
+                      "error": "#ba1a1a",
+                      "inverse-on-surface": "#eef0ff",
+                      "surface-container": "#eaedff",
+                      "tertiary-container": "#2b2822",
+                      "surface-container-highest": "#dae2fd",
+                      "on-primary-fixed": "#071747",
+                      "inverse-primary": "#b7c4fd",
+                      "outline-variant": "#c6c5d0",
+                      "on-surface": "#131b2e",
+                      "on-primary-container": "#808dc2",
+                      "on-tertiary-fixed-variant": "#4a4640",
+                      "outline": "#767680",
+                      "on-surface-variant": "#45464f",
+                      "on-tertiary-container": "#948f87",
+                      "primary-container": "#172554",
+                      "tertiary-fixed-dim": "#ccc6bd",
+                      "on-secondary": "#ffffff",
+                      "secondary-fixed": "#dbe1ff",
+                      "on-primary-fixed-variant": "#374475",
+                      "secondary-container": "#316bf3",
+                      "on-secondary-fixed-variant": "#003ea8",
+                      "surface": "#faf8ff",
+                      "surface-bright": "#faf8ff",
+                      "on-background": "#131b2e",
+                      "tertiary-fixed": "#e8e1d9",
+                      "surface-tint": "#4f5c8e",
+                      "secondary": "#0051d5",
+                      "on-error-container": "#93000a",
+                      "on-secondary-fixed": "#00174b",
+                      "on-primary": "#ffffff",
+                      "background": "#faf8ff",
+                      "surface-container-lowest": "#ffffff"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "base": "4px",
+                      "margin-mobile": "16px",
+                      "sm": "16px",
+                      "md": "24px",
+                      "margin-desktop": "64px",
+                      "xl": "80px",
+                      "gutter": "24px",
+                      "xs": "8px",
+                      "lg": "48px"
+              },
+              "fontFamily": {
+                      "body-lg": ["Inter"],
+                      "headline-md": ["Playfair Display"],
+                      "display-lg-mobile": ["Playfair Display"],
+                      "caption": ["Inter"],
+                      "headline-sm": ["Playfair Display"],
+                      "body-md": ["Inter"],
+                      "display-lg": ["Playfair Display"],
+                      "label-md": ["Inter"]
+              },
+              "fontSize": {
+                      "body-lg": ["18px", {"lineHeight": "1.7", "fontWeight": "400"}],
+                      "headline-md": ["32px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                      "display-lg-mobile": ["32px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                      "caption": ["12px", {"lineHeight": "1.4", "fontWeight": "400"}],
+                      "headline-sm": ["24px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                      "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                      "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "label-md": ["14px", {"lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "600"}]
+              }
+      },
+          },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.fill {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        
+        /* Smooth scrolling for TOC */
+        html { scroll-behavior: smooth; }
+        
+        /* Custom scrollbar for TOC */
+        .toc-container::-webkit-scrollbar {
+            width: 4px;
+        }
+        .toc-container::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .toc-container::-webkit-scrollbar-thumb {
+            background-color: #c6c5d0;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen flex flex-col antialiased">
+<!-- TopNavBar -->
+<nav class="bg-surface border-b border-outline-variant sticky top-0 z-50 w-full flex justify-between items-center px-margin-desktop py-4 max-w-[1280px] mx-auto">
+<!-- Brand Logo -->
+<a class="font-headline-sm text-headline-sm font-bold tracking-tight text-primary" href="#">
+            POLISPHERE
+        </a>
+<!-- Navigation Links (Hidden on Mobile) -->
+<div class="hidden md:flex items-center space-x-gutter">
+<a class="text-on-surface-variant hover:text-primary transition-colors font-label-md text-label-md" href="#">Home</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-label-md text-label-md" href="#">Subjects</a>
+<a class="text-secondary font-bold border-b-2 border-secondary font-label-md text-label-md pb-[2px]" href="#">Notes</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-label-md text-label-md" href="#">Important Questions</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-label-md text-label-md" href="#">PYQs</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-label-md text-label-md" href="#">Resources</a>
+</div>
+<!-- Actions & Search -->
+<div class="flex items-center space-x-sm">
+<button class="text-on-surface-variant hover:text-secondary transition-all p-2 rounded-full hover:bg-surface-container">
+<span class="material-symbols-outlined" data-icon="search">search</span>
+</button>
+<button class="text-on-surface-variant hover:text-secondary transition-all p-2 rounded-full hover:bg-surface-container mr-sm">
+<span class="material-symbols-outlined" data-icon="bookmark">bookmark</span>
+</button>
+<a class="hidden md:inline-flex items-center justify-center h-[48px] px-sm border border-secondary text-secondary font-label-md text-label-md rounded-lg hover:bg-surface-container transition-colors" href="#">
+                Login
+            </a>
+<a class="hidden md:inline-flex items-center justify-center h-[48px] px-sm bg-primary-container text-on-primary font-label-md text-label-md rounded-lg hover:opacity-90 transition-opacity" href="#">
+                Sign Up
+            </a>
+</div>
+</nav>
+<!-- Main Content Layout -->
+<main class="flex-grow w-full max-w-[1280px] mx-auto px-margin-mobile md:px-margin-desktop py-lg grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Left Sidebar: Table of Contents -->
+<aside class="hidden lg:block lg:col-span-3">
+<div class="sticky top-[100px] toc-container overflow-y-auto max-h-[calc(100vh-120px)] pr-sm">
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-md">Contents</h3>
+<nav class="flex flex-col space-y-sm border-l border-outline-variant pl-sm">
+<a class="font-label-md text-label-md text-secondary hover:text-secondary transition-colors border-l-2 border-secondary -ml-[17px] pl-sm" href="#introduction">Introduction</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#meaning">Meaning of General Will</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#key-features">Key Features</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#key-arguments">Key Arguments</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#comparison">Comparison: Hobbes &amp; Locke</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#criticism">Criticism</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#exam-questions">Exam Questions</a>
+</nav>
+</div>
+</aside>
+<!-- Center Column: Main Note Content -->
+<article class="col-span-1 lg:col-span-6 bg-surface border border-outline-variant rounded-xl p-md md:p-xl shadow-[0px_4px_20px_rgba(15,23,42,0.05)]">
+<!-- Breadcrumbs -->
+<nav class="flex items-center text-on-surface-variant font-caption text-caption mb-md space-x-2">
+<a class="hover:text-primary transition-colors" href="#">Subjects</a>
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+<a class="hover:text-primary transition-colors" href="#">Political Theory</a>
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+<span class="text-on-surface font-medium">Rousseau</span>
+</nav>
+<!-- Header -->
+<header class="mb-xl">
+<h1 class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg text-on-surface mb-sm">Rousseau: The General Will</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant">An in-depth analysis of Jean-Jacques Rousseau's core political concept, distinguishing it from the 'Will of All' and examining its implications for democratic theory.</p>
+<div class="flex items-center mt-sm space-x-sm border-t border-outline-variant pt-sm">
+<span class="bg-surface-container px-2 py-1 rounded text-on-surface-variant font-caption text-caption">Unit 2: Social Contract</span>
+<span class="bg-surface-container px-2 py-1 rounded text-on-surface-variant font-caption text-caption">15 Min Read</span>
+</div>
+</header>
+<!-- Content Sections -->
+<section class="mb-lg" id="introduction">
+<h2 class="font-headline-md text-headline-md text-on-surface mb-sm">Introduction</h2>
+<p class="font-body-md text-body-md text-on-surface mb-sm">
+                    Jean-Jacques Rousseau introduces the concept of the <strong>General Will</strong> (<em>volonté générale</em>) in his seminal work, <em>The Social Contract</em> (1762). It represents a collective intent that aims at the common good or common interest, standing in contrast to private interests.
+                </p>
+<!-- Quote Box -->
+<blockquote class="bg-surface-container border-l-4 border-secondary p-md my-md rounded-r-lg italic font-body-lg text-body-lg text-on-surface-variant">
+                    "Each of us puts his person and all his power in common under the supreme direction of the general will, and, in our corporate capacity, we receive each member as an indivisible part of the whole."
+                    <footer class="mt-2 font-caption text-caption text-on-surface font-semibold not-italic">— Jean-Jacques Rousseau, The Social Contract</footer>
+</blockquote>
+</section>
+<section class="mb-lg" id="meaning">
+<h2 class="font-headline-md text-headline-md text-on-surface mb-sm">Meaning of General Will</h2>
+<!-- Highlighted Definition Box -->
+<div class="bg-surface-container-high border border-outline-variant rounded-lg p-md mb-sm">
+<h4 class="font-label-md text-label-md text-primary mb-2 flex items-center">
+<span class="material-symbols-outlined mr-2">menu_book</span> CORE DEFINITION
+                    </h4>
+<p class="font-body-md text-body-md text-on-surface">
+                        The General Will is the will of the citizens directed towards the <strong>common good</strong>. It is fundamentally distinct from the <em>"Will of All"</em> (the mere aggregate of private, individual self-interests). While the Will of All looks to private interest, the General Will looks solely to the common interest.
+                    </p>
+</div>
+</section>
+<section class="mb-lg" id="key-features">
+<h2 class="font-headline-md text-headline-md text-on-surface mb-sm">Key Features</h2>
+<ul class="space-y-4 font-body-md text-body-md text-on-surface">
+<li class="flex items-start pb-4 border-b border-outline-variant/50">
+<span class="material-symbols-outlined text-secondary mr-sm mt-1">check_circle</span>
+<div>
+<strong>Infallible:</strong> Rousseau argues the General Will is always right and always tends to the public advantage, even if the people themselves can be deceived.
+                        </div>
+</li>
+<li class="flex items-start pb-4 border-b border-outline-variant/50">
+<span class="material-symbols-outlined text-secondary mr-sm mt-1">check_circle</span>
+<div>
+<strong>Indivisible &amp; Inalienable:</strong> Sovereignty, being the exercise of the general will, cannot be alienated or divided. This forms his critique of representative democracy.
+                        </div>
+</li>
+<li class="flex items-start pb-4 border-b border-outline-variant/50">
+<span class="material-symbols-outlined text-secondary mr-sm mt-1">check_circle</span>
+<div>
+<strong>Absolute:</strong> It has absolute power over all its members, guided by justice and reason.
+                        </div>
+</li>
+</ul>
+</section>
+<section class="mb-lg" id="comparison">
+<h2 class="font-headline-md text-headline-md text-on-surface mb-sm">Comparison: Social Contract Thinkers</h2>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse border border-outline-variant rounded-lg">
+<thead class="bg-surface-container font-label-md text-label-md text-on-surface">
+<tr>
+<th class="p-sm border-b border-r border-outline-variant">Thinker</th>
+<th class="p-sm border-b border-r border-outline-variant">Nature of Sovereign</th>
+<th class="p-sm border-b border-outline-variant">Key Concept</th>
+</tr>
+</thead>
+<tbody class="font-body-md text-body-md text-on-surface">
+<tr>
+<td class="p-sm border-b border-r border-outline-variant font-medium">Hobbes</td>
+<td class="p-sm border-b border-r border-outline-variant">Absolute Monarch (Leviathan)</td>
+<td class="p-sm border-b border-outline-variant">Security / Survival</td>
+</tr>
+<tr>
+<td class="p-sm border-b border-r border-outline-variant font-medium">Locke</td>
+<td class="p-sm border-b border-r border-outline-variant">Limited Government</td>
+<td class="p-sm border-b border-outline-variant">Natural Rights (Property)</td>
+</tr>
+<tr>
+<td class="p-sm border-r border-outline-variant font-medium">Rousseau</td>
+<td class="p-sm border-r border-outline-variant">The People (Popular Sovereignty)</td>
+<td class="p-sm">The General Will</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</article>
+<!-- Right Sidebar: Actions & Tips -->
+<aside class="col-span-1 lg:col-span-3 space-y-md">
+<!-- Quick Actions Card -->
+<div class="bg-surface border border-outline-variant rounded-xl p-md shadow-[0px_4px_20px_rgba(15,23,42,0.05)]">
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-sm border-b border-outline-variant pb-2">Actions</h3>
+<div class="flex flex-col space-y-2">
+<button class="flex items-center w-full p-2 text-on-surface hover:bg-surface-container rounded-md transition-colors font-body-md text-body-md">
+<span class="material-symbols-outlined mr-sm text-secondary">bookmark_add</span>
+                        Save Note
+                    </button>
+<button class="flex items-center w-full p-2 text-on-surface hover:bg-surface-container rounded-md transition-colors font-body-md text-body-md">
+<span class="material-symbols-outlined mr-sm text-secondary">download</span>
+                        Download PDF
+                    </button>
+<button class="flex items-center w-full p-2 text-on-surface hover:bg-surface-container rounded-md transition-colors font-body-md text-body-md">
+<span class="material-symbols-outlined mr-sm text-secondary">print</span>
+                        Print Friendly
+                    </button>
+<button class="flex items-center w-full p-2 text-on-surface hover:bg-surface-container rounded-md transition-colors font-body-md text-body-md">
+<span class="material-symbols-outlined mr-sm text-secondary">share</span>
+                        Share
+                    </button>
+</div>
+</div>
+<!-- Exam Tip Card -->
+<div class="bg-[#fefce8] border border-[#fef08a] rounded-xl p-md shadow-[0px_4px_20px_rgba(15,23,42,0.05)] relative overflow-hidden">
+<div class="absolute top-0 right-0 p-2 text-[#ca8a04] opacity-20">
+<span class="material-symbols-outlined text-4xl">lightbulb</span>
+</div>
+<h4 class="font-label-md text-label-md text-[#854d0e] mb-2 flex items-center relative z-10">
+<span class="material-symbols-outlined mr-1 text-[18px]">lightbulb</span>
+                    EXAM TIP
+                </h4>
+<p class="font-body-md text-body-md text-[#713f12] relative z-10">
+                    When discussing Rousseau, always clearly distinguish between the <strong>General Will</strong> (common good) and the <strong>Will of All</strong> (sum of private interests). Many students lose marks by conflating the two.
+                </p>
+</div>
+<!-- Related Topics -->
+<div class="bg-surface border border-outline-variant rounded-xl p-md shadow-[0px_4px_20px_rgba(15,23,42,0.05)]">
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-sm border-b border-outline-variant pb-2">Related Notes</h3>
+<ul class="space-y-3 font-body-md text-body-md">
+<li><a class="text-on-surface-variant hover:text-secondary transition-colors block" href="#">Hobbes: State of Nature</a></li>
+<li><a class="text-on-surface-variant hover:text-secondary transition-colors block" href="#">Locke: Theory of Property</a></li>
+<li><a class="text-on-surface-variant hover:text-secondary transition-colors block" href="#">Rousseau: Origin of Inequality</a></li>
+</ul>
+</div>
+</aside>
+</main>
+<!-- Footer -->
+<footer class="w-full py-xl px-margin-desktop grid grid-cols-1 md:grid-cols-4 gap-gutter max-w-[1280px] mx-auto bg-surface-container border-t border-outline-variant mt-auto">
+<div class="col-span-1 md:col-span-1">
+<div class="font-headline-sm text-headline-sm font-bold text-primary mb-sm">
+                POLISPHERE
+            </div>
+<p class="font-caption text-caption text-on-surface-variant">
+                © 2024 POLISPHERE. Political Science • Learn Better.
+            </p>
+</div>
+<div class="col-span-1 md:col-span-3 grid grid-cols-2 md:grid-cols-4 gap-sm">
+<div class="flex flex-col space-y-2">
+<h4 class="font-label-md text-label-md text-on-surface">Learn</h4>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors" href="#">Courses</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors" href="#">Notes</a>
+</div>
+<div class="flex flex-col space-y-2">
+<h4 class="font-label-md text-label-md text-on-surface">Resources</h4>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors" href="#">Library</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors" href="#">PYQs</a>
+</div>
+<div class="flex flex-col space-y-2">
+<h4 class="font-label-md text-label-md text-on-surface">Connect</h4>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors" href="#">About Us</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors" href="#">Contact</a>
+</div>
+<div class="flex flex-col space-y-2">
+<h4 class="font-label-md text-label-md text-on-surface">Legal</h4>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors" href="#">Terms</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors" href="#">Privacy</a>
+</div>
+</div>
+</footer>
+<script>
+        // Simple active state toggling for TOC (visual only, for demo purposes)
+        const tocLinks = document.querySelectorAll('.toc-container nav a');
+        
+        tocLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                // Remove active classes from all
+                tocLinks.forEach(l => {
+                    l.classList.remove('text-secondary', 'border-l-2', 'border-secondary', '-ml-[17px]', 'pl-sm');
+                    l.classList.add('text-on-surface-variant');
+                });
+                
+                // Add active classes to clicked
+                this.classList.remove('text-on-surface-variant');
+                this.classList.add('text-secondary', 'border-l-2', 'border-secondary', '-ml-[17px]', 'pl-sm');
+            });
+        });
+    </script>
+</body></html>

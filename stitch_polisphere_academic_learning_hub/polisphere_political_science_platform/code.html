@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>POLISPHERE - Political Science Study Platform</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;family=Playfair+Display:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-dim": "#d2d9f4",
+                    "inverse-surface": "#283044",
+                    "primary-fixed-dim": "#b7c4fd",
+                    "on-secondary-container": "#fefcff",
+                    "primary": "#000f3f",
+                    "error-container": "#ffdad6",
+                    "secondary-fixed-dim": "#b4c5ff",
+                    "on-tertiary-fixed": "#1e1b16",
+                    "on-tertiary": "#ffffff",
+                    "tertiary": "#16140f",
+                    "surface-container-low": "#f2f3ff",
+                    "on-error": "#ffffff",
+                    "surface-variant": "#dae2fd",
+                    "primary-fixed": "#dce1ff",
+                    "surface-container-high": "#e2e7ff",
+                    "error": "#ba1a1a",
+                    "inverse-on-surface": "#eef0ff",
+                    "surface-container": "#eaedff",
+                    "tertiary-container": "#2b2822",
+                    "surface-container-highest": "#dae2fd",
+                    "on-primary-fixed": "#071747",
+                    "inverse-primary": "#b7c4fd",
+                    "outline-variant": "#c6c5d0",
+                    "on-surface": "#131b2e",
+                    "on-primary-container": "#808dc2",
+                    "on-tertiary-fixed-variant": "#4a4640",
+                    "outline": "#767680",
+                    "on-surface-variant": "#45464f",
+                    "on-tertiary-container": "#948f87",
+                    "primary-container": "#172554",
+                    "tertiary-fixed-dim": "#ccc6bd",
+                    "on-secondary": "#ffffff",
+                    "secondary-fixed": "#dbe1ff",
+                    "on-primary-fixed-variant": "#374475",
+                    "secondary-container": "#316bf3",
+                    "on-secondary-fixed-variant": "#003ea8",
+                    "surface": "#faf8ff",
+                    "surface-bright": "#faf8ff",
+                    "on-background": "#131b2e",
+                    "tertiary-fixed": "#e8e1d9",
+                    "surface-tint": "#4f5c8e",
+                    "secondary": "#0051d5",
+                    "on-error-container": "#93000a",
+                    "on-secondary-fixed": "#00174b",
+                    "on-primary": "#ffffff",
+                    "background": "#faf8ff",
+                    "surface-container-lowest": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "base": "4px",
+                    "margin-mobile": "16px",
+                    "sm": "16px",
+                    "md": "24px",
+                    "margin-desktop": "64px",
+                    "xl": "80px",
+                    "gutter": "24px",
+                    "xs": "8px",
+                    "lg": "48px"
+            },
+            "fontFamily": {
+                    "body-lg": [
+                            "Inter"
+                    ],
+                    "headline-md": [
+                            "Playfair Display"
+                    ],
+                    "display-lg-mobile": [
+                            "Playfair Display"
+                    ],
+                    "caption": [
+                            "Inter"
+                    ],
+                    "headline-sm": [
+                            "Playfair Display"
+                    ],
+                    "body-md": [
+                            "Inter"
+                    ],
+                    "display-lg": [
+                            "Playfair Display"
+                    ],
+                    "label-md": [
+                            "Inter"
+                    ]
+            },
+            "fontSize": {
+                    "body-lg": [
+                            "18px",
+                            {
+                                    "lineHeight": "1.7",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "headline-md": [
+                            "32px",
+                            {
+                                    "lineHeight": "1.3",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "display-lg-mobile": [
+                            "32px",
+                            {
+                                    "lineHeight": "1.2",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "caption": [
+                            "12px",
+                            {
+                                    "lineHeight": "1.4",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "headline-sm": [
+                            "24px",
+                            {
+                                    "lineHeight": "1.4",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "body-md": [
+                            "16px",
+                            {
+                                    "lineHeight": "1.6",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "display-lg": [
+                            "48px",
+                            {
+                                    "lineHeight": "1.1",
+                                    "letterSpacing": "-0.02em",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "label-md": [
+                            "14px",
+                            {
+                                    "lineHeight": "1.2",
+                                    "letterSpacing": "0.05em",
+                                    "fontWeight": "600"
+                            }
+                    ]
+            }
+    },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #faf8ff;
+            color: #131b2e;
+            -webkit-font-smoothing: antialiased;
+        }
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+        }
+        .bento-card {
+            background: #ffffff;
+            border: 1px solid #E2E8F0;
+            border-radius: 16px;
+            padding: 24px;
+            transition: all 0.3s ease;
+        }
+        .bento-card:hover {
+            box-shadow: 0px 4px 20px rgba(15, 23, 42, 0.05);
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body class="font-body-md text-body-md bg-background text-on-background">
+<!-- TopNavBar -->
+<nav class="bg-surface dark:bg-inverse-surface text-primary dark:text-primary-fixed border-b border-outline-variant dark:border-outline docked full-width top-0 flat no shadows sticky z-50 w-full flex justify-between items-center px-margin-desktop py-4 max-w-[1280px] mx-auto">
+<div class="font-headline-sm text-headline-sm font-bold tracking-tight text-primary dark:text-primary-fixed">POLISPHERE</div>
+<div class="hidden md:flex gap-6 items-center">
+<a class="font-label-md text-label-md text-secondary dark:text-secondary-fixed font-bold border-b-2 border-secondary pb-1" href="#">Home</a>
+<a class="font-label-md text-label-md text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors" href="#">Subjects</a>
+<a class="font-label-md text-label-md text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors" href="#">Notes</a>
+<a class="font-label-md text-label-md text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors" href="#">Important Questions</a>
+<a class="font-label-md text-label-md text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors" href="#">PYQs</a>
+<a class="font-label-md text-label-md text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors" href="#">Resources</a>
+</div>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined cursor-pointer hover:text-secondary transition-all">search</span>
+<span class="material-symbols-outlined cursor-pointer hover:text-secondary transition-all">bookmark</span>
+<a class="font-label-md text-label-md text-secondary border border-secondary px-4 py-2 rounded-lg hover:bg-surface-container transition-colors" href="#">Login</a>
+<a class="font-label-md text-label-md bg-primary-container text-on-primary px-4 py-2 rounded-lg hover:bg-primary transition-colors" href="#">Sign Up</a>
+</div>
+</nav>
+<main class="max-w-[1280px] mx-auto px-margin-desktop py-xl">
+<!-- Hero Section -->
+<section class="grid md:grid-cols-2 gap-xl items-center mb-xl">
+<div>
+<p class="font-label-md text-label-md text-secondary mb-4 tracking-widest uppercase">Political Science • Study Platform</p>
+<h1 class="font-display-lg text-display-lg text-primary mb-6">Understand Politics. Think Critically. Prepare Smarter.</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-8">Master your syllabus with exam-focused notes, structured learning paths, and clear explanations of complex political theories.</p>
+<div class="flex gap-4">
+<button class="bg-primary-container text-on-primary px-6 py-3 rounded-lg font-label-md text-label-md flex items-center gap-2 hover:bg-primary transition-colors">Explore Notes <span class="material-symbols-outlined text-[18px]">arrow_forward</span></button>
+<button class="border border-outline px-6 py-3 rounded-lg font-label-md text-label-md hover:bg-surface-container transition-colors">Browse Subjects</button>
+</div>
+</div>
+<div class="relative">
+<img class="w-full h-auto rounded-2xl object-cover shadow-sm border border-outline-variant" data-alt="A modern, well-lit academic library scene with a laptop open to study materials on a wooden desk, surrounded by classical books, creating a serene, intellectual atmosphere in a modern light-mode style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAWVtSBV-a4kONwKhYBBfwF7nhZx2mcZi1VCYjgUedKdLxT7maQRFi7ozBG16ObHIrVNJV3-L8wvH1iGgWpG5j-pf5FCFiYyYCyriEur84C58SvzS_SWBcnPbxrhhaC2KfaJQHswurpz6-XBa5SApzRw69ZMxW61H4cERADOzWWIsRZ3UCqFKlt9MqaJrbWWsdGmBJqANW8t--B3rYqzs2ldiXyrqsRPij4q6hu6Wa2dHonHZPggICwmw"/>
+<div class="absolute top-8 -left-8 bg-surface p-4 rounded-xl shadow-[0px_4px_20px_rgba(15,23,42,0.05)] border border-outline-variant flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary">library_books</span>
+<span class="font-label-md text-label-md">120+ Topics</span>
+</div>
+<div class="absolute bottom-16 -right-4 bg-surface p-4 rounded-xl shadow-[0px_4px_20px_rgba(15,23,42,0.05)] border border-outline-variant flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary">fact_check</span>
+<span class="font-label-md text-label-md">Exam Focused</span>
+</div>
+<div class="absolute top-1/2 -translate-y-1/2 -right-12 bg-surface p-4 rounded-xl shadow-[0px_4px_20px_rgba(15,23,42,0.05)] border border-outline-variant flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary">lightbulb</span>
+<span class="font-label-md text-label-md">Easy Explanations</span>
+</div>
+</div>
+</section>
+<!-- Search Section -->
+<section class="max-w-3xl mx-auto text-center mb-xl bg-surface-container-low p-xl rounded-2xl border border-outline-variant">
+<h2 class="font-headline-md text-headline-md mb-8">What do you want to study today?</h2>
+<div class="relative max-w-2xl mx-auto mb-6">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="w-full pl-12 pr-4 py-4 rounded-xl border border-outline-variant focus:border-secondary focus:ring-1 focus:ring-secondary transition-all font-body-lg text-body-lg" placeholder="Search for thinkers, theories, or concepts..." type="text"/>
+</div>
+<div class="flex flex-wrap justify-center gap-2">
+<span class="text-caption font-caption text-on-surface-variant mr-2 self-center">Popular:</span>
+<span class="px-3 py-1 bg-surface border border-outline-variant rounded-full font-caption text-caption cursor-pointer hover:border-secondary transition-colors">Rousseau</span>
+<span class="px-3 py-1 bg-surface border border-outline-variant rounded-full font-caption text-caption cursor-pointer hover:border-secondary transition-colors">Mill</span>
+<span class="px-3 py-1 bg-surface border border-outline-variant rounded-full font-caption text-caption cursor-pointer hover:border-secondary transition-colors">Human Rights</span>
+<span class="px-3 py-1 bg-surface border border-outline-variant rounded-full font-caption text-caption cursor-pointer hover:border-secondary transition-colors">Democracy</span>
+<span class="px-3 py-1 bg-surface border border-outline-variant rounded-full font-caption text-caption cursor-pointer hover:border-secondary transition-colors">Citizenship</span>
+<span class="px-3 py-1 bg-surface border border-outline-variant rounded-full font-caption text-caption cursor-pointer hover:border-secondary transition-colors">Political Theory</span>
+</div>
+</section>
+<!-- Explore Subjects -->
+<section class="mb-xl">
+<h2 class="font-headline-md text-headline-md mb-md">Explore Subjects</h2>
+<div class="bento-grid">
+<div class="bento-card group cursor-pointer">
+<div class="w-12 h-12 rounded-full bg-surface-container flex items-center justify-center mb-4 group-hover:bg-primary-fixed transition-colors">
+<span class="material-symbols-outlined text-primary">menu_book</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm mb-2 group-hover:text-secondary transition-colors">Modern Political Philosophy</h3>
+<p class="font-caption text-caption text-on-surface-variant">Hobbes to Marx</p>
+</div>
+<div class="bento-card group cursor-pointer">
+<div class="w-12 h-12 rounded-full bg-surface-container flex items-center justify-center mb-4 group-hover:bg-primary-fixed transition-colors">
+<span class="material-symbols-outlined text-primary">public</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm mb-2 group-hover:text-secondary transition-colors">Comparative Politics</h3>
+<p class="font-caption text-caption text-on-surface-variant">Systems &amp; Structures</p>
+</div>
+<div class="bento-card group cursor-pointer">
+<div class="w-12 h-12 rounded-full bg-surface-container flex items-center justify-center mb-4 group-hover:bg-primary-fixed transition-colors">
+<span class="material-symbols-outlined text-primary">account_balance</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm mb-2 group-hover:text-secondary transition-colors">Indian Political Thought</h3>
+<p class="font-caption text-caption text-on-surface-variant">Ancient to Modern</p>
+</div>
+<div class="bento-card group cursor-pointer">
+<div class="w-12 h-12 rounded-full bg-surface-container flex items-center justify-center mb-4 group-hover:bg-primary-fixed transition-colors">
+<span class="material-symbols-outlined text-primary">language</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm mb-2 group-hover:text-secondary transition-colors">Global Politics</h3>
+<p class="font-caption text-caption text-on-surface-variant">IR Theories &amp; Issues</p>
+</div>
+<div class="bento-card group cursor-pointer">
+<div class="w-12 h-12 rounded-full bg-surface-container flex items-center justify-center mb-4 group-hover:bg-primary-fixed transition-colors">
+<span class="material-symbols-outlined text-primary">psychology</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm mb-2 group-hover:text-secondary transition-colors">Political Theory</h3>
+<p class="font-caption text-caption text-on-surface-variant">Concepts &amp; Ideologies</p>
+</div>
+<div class="bento-card group cursor-pointer">
+<div class="w-12 h-12 rounded-full bg-surface-container flex items-center justify-center mb-4 group-hover:bg-primary-fixed transition-colors">
+<span class="material-symbols-outlined text-primary">corporate_fare</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm mb-2 group-hover:text-secondary transition-colors">Public Administration</h3>
+<p class="font-caption text-caption text-on-surface-variant">Theories &amp; Practice</p>
+</div>
+</div>
+</section>
+<!-- Thinkers Section -->
+<section class="mb-xl bg-surface-container-low p-xl rounded-2xl border border-outline-variant">
+<h2 class="font-headline-md text-headline-md mb-md text-center">Key Political Thinkers</h2>
+<div class="flex flex-wrap justify-center gap-12">
+<div class="text-center group cursor-pointer">
+<div class="w-32 h-32 rounded-full overflow-hidden border-2 border-outline-variant mb-4 mx-auto group-hover:border-secondary transition-colors">
+<img alt="Jean-Jacques Rousseau" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD9X3eHv9O4YrsfVzRSTYWUzIV5faqlnNeXbrlsNGJs4Mm2_6YFD00Az61_CgDcW_3dgtTqaTWUyBCEEcZJiTB9ZtO6u6R5QUPJn6oFtHaHF6Mhk3pKeMqYFGyX0a1YTDAu3nMi0Ve9tA4mtv1YfMG4OhzoN1eAJZHixZ9olzfqllo_0EIr-HNKd-MpMtvKtiNcAYUVOnl_L7XDhFwlQ2U5p0oGPfyitv3VrqGiOJoTkhfQfNygIbEHBQ"/>
+</div>
+<h4 class="font-label-md text-label-md">Rousseau</h4>
+<p class="font-caption text-caption text-on-surface-variant">General Will</p>
+</div>
+<div class="text-center group cursor-pointer">
+<div class="w-32 h-32 rounded-full overflow-hidden border-2 border-outline-variant mb-4 mx-auto group-hover:border-secondary transition-colors">
+<img alt="J.S. Mill" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBAc2FT3k44iCgSrMlo2buqt7bwk4NKeJJB17u8YEAQ49EIkCYZmU40YwUXdDePHtkPzf3H04aSkmeI97q1IhApTzcoIndYJdQWA97HN-o7xFibIbACbEJV_CAUkNg_7ZZP-AZP_r92j_OZdmXL9ae0y58H2g9tbxV9WFMudU-F2SOnApUchVecdmMDy2APqOZf5qYR1-7g9Ulbqk0sc7UhzF2KYs7B-e2JTx1p9VD2AulXP9mUAMRE1Q"/>
+</div>
+<h4 class="font-label-md text-label-md">J.S. Mill</h4>
+<p class="font-caption text-caption text-on-surface-variant">On Liberty</p>
+</div>
+<div class="text-center group cursor-pointer">
+<div class="w-32 h-32 rounded-full overflow-hidden border-2 border-outline-variant mb-4 mx-auto group-hover:border-secondary transition-colors">
+<img alt="B.R. Ambedkar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBFWW-hzGdzayrYGBoIHpiAlLYvVYF_hPCR0gL-MXTY895Hxr49xJFhCQC519rgsNfvzXaEut8IMAzNvB4dtLDnec6o5RxLD1URO-ktZ7mgpognLw3N1hv3jAwagBHuPrbSRQWmyp6Rc0xej9Or47ls457znBeeAM1pMS-DwZEl03Qn-wSjj5YFrz9bLwHxCoQwH_zpI2W8uoVBEqbe1gvmYeqxSK8fJRNZDYHh4FI-Cfolge4jFn5UqQ"/>
+</div>
+<h4 class="font-label-md text-label-md">B.R. Ambedkar</h4>
+<p class="font-caption text-caption text-on-surface-variant">Social Justice</p>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container dark:bg-inverse-surface text-on-surface dark:text-inverse-on-surface border-t border-outline-variant dark:border-outline full-width flat no shadows w-full py-xl px-margin-desktop grid grid-cols-4 gap-gutter max-w-[1280px] mx-auto">
+<div class="col-span-4 md:col-span-1">
+<div class="font-headline-sm text-headline-sm font-bold text-primary dark:text-primary-fixed mb-4">POLISPHERE</div>
+<p class="font-caption text-caption text-on-surface-variant mb-4">Political Science • Learn Better.</p>
+<p class="font-caption text-caption text-on-surface-variant">© 2024 POLISPHERE.</p>
+</div>
+<div class="col-span-2 md:col-span-1">
+<h4 class="font-label-md text-label-md font-semibold mb-4">Learn</h4>
+<ul class="space-y-2">
+<li><a class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors" href="#">Subjects</a></li>
+<li><a class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors" href="#">Notes</a></li>
+<li><a class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors" href="#">Thinkers</a></li>
+</ul>
+</div>
+<div class="col-span-2 md:col-span-1">
+<h4 class="font-label-md text-label-md font-semibold mb-4">Resources</h4>
+<ul class="space-y-2">
+<li><a class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors" href="#">PYQs</a></li>
+<li><a class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors" href="#">Important Questions</a></li>
+<li><a class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors" href="#">Syllabus</a></li>
+</ul>
+</div>
+<div class="col-span-4 md:col-span-1">
+<h4 class="font-label-md text-label-md font-semibold mb-4">Legal &amp; Connect</h4>
+<ul class="space-y-2">
+<li><a class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors" href="#">Privacy Policy</a></li>
+<li><a class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors" href="#">Terms of Service</a></li>
+<li><a class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors" href="#">Contact Us</a></li>
+</ul>
+</div>
+</footer>
+</body></html>

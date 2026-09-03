@@ -1,0 +1,26 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+.material-symbols-outlined.fill {
+  font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom scrollbar for TOC */
+.toc-container::-webkit-scrollbar {
+  width: 4px;
+}
+.toc-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+.toc-container::-webkit-scrollbar-thumb {
+  background-color: #c6c5d0;
+  border-radius: 4px;
+}
