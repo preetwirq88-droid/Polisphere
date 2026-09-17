@@ -1,7 +1,26 @@
 from motor.motor_asyncio import AsyncIOMotorClient
 from app.config import settings
 import logging
+import ssl
 import certifi
+
+# ---------------------------------------------------------------------------
+# Python 3.14 / OpenSSL 3.x SSL compatibility patch for MongoDB Atlas
+# OpenSSL 3.x defaults to SECLEVEL=2 which breaks TLS handshake with Atlas.
+# Lowering to SECLEVEL=1 restores compatibility without disabling encryption.
+# ---------------------------------------------------------------------------
+_original_create_default_context = ssl.create_default_context
+
+def _patched_create_default_context(*args, **kwargs):
+    ctx = _original_create_default_context(*args, **kwargs)
+    try:
+        ctx.set_ciphers("DEFAULT@SECLEVEL=1")
+    except ssl.SSLError:
+        pass
+    return ctx
+
+ssl.create_default_context = _patched_create_default_context
+# ---------------------------------------------------------------------------
 
 logger = logging.getLogger(__name__)
 
@@ -17,7 +36,8 @@ async def connect_to_mongo():
     logger.info(f"Connecting to MongoDB at {settings.MONGO_URI}...")
     db.client = AsyncIOMotorClient(
         settings.MONGO_URI,
-        tlsCAFile=certifi.where()
+        tlsCAFile=certifi.where(),
+        tlsAllowInvalidCertificates=False,
     )
     database = db.client[settings.MONGO_DB_NAME]
     
