@@ -16,9 +16,17 @@ from app.routers.admin import important_questions as admin_important_questions
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    await connect_to_mongo()
+    try:
+        await connect_to_mongo()
+        print("MongoDB connected successfully.")
+    except Exception as e:
+        print(f"MongoDB connection failed: {e}")
+        print("Starting API without MongoDB connection.")
     yield
-    await close_mongo_connection()
+    try:
+        await close_mongo_connection()
+    except Exception:
+        pass
 
 app = FastAPI(
     title="POLISPHERE API",
