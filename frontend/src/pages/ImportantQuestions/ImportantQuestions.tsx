@@ -30,6 +30,13 @@ export const ImportantQuestions: React.FC = () => {
       }),
   });
 
+  // Derive available unit numbers dynamically from all questions (unfiltered)
+  const { data: allQuestions = [] } = useQuery({
+    queryKey: ['important-questions-all'],
+    queryFn: () => getImportantQuestions(),
+  });
+  const availableUnits = Array.from(new Set(allQuestions.map((q) => q.unit_number))).sort((a, b) => a - b);
+
   const handleApply = () => {
     const params: Record<string, string> = {};
     if (selectedSubject !== 'all') params.subject = selectedSubject;
@@ -80,9 +87,7 @@ export const ImportantQuestions: React.FC = () => {
             value: selectedUnit,
             options: [
               { label: 'All Units', value: '0' },
-              { label: 'Unit 1', value: '1' },
-              { label: 'Unit 2', value: '2' },
-              { label: 'Unit 3', value: '3' },
+              ...availableUnits.map((u) => ({ label: `Unit ${u}`, value: String(u) })),
             ],
           },
           {
@@ -174,9 +179,9 @@ export const ImportantQuestions: React.FC = () => {
 
                 <div className="pt-sm border-t border-outline-variant/60 flex items-center justify-between">
                   <span className="text-caption text-outline">Verified Academic Question</span>
-                  {q.note_id ? (
+                  {q.note_slug ? (
                     <Link
-                      to="/notes/rousseau-general-will"
+                      to={`/notes/${q.note_slug}`}
                       className="text-secondary font-label-md text-label-md flex items-center gap-1 hover:underline"
                     >
                       Study Reference Note <span className="material-symbols-outlined text-[16px]">arrow_forward</span>

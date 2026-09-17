@@ -19,6 +19,15 @@ async def format_question(doc: dict) -> ImportantQuestionResponse:
             doc["subject_name"] = subject.get("name")
     except Exception:
         pass
+
+    # Resolve note_slug from the linked note
+    if doc.get("note_id"):
+        try:
+            note = await db.notes.find_one({"_id": ObjectId(doc["note_id"])})
+            if note:
+                doc["note_slug"] = note.get("slug")
+        except Exception:
+            pass
         
     return ImportantQuestionResponse(**doc)
 

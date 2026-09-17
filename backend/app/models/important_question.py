@@ -25,3 +25,4 @@ class ImportantQuestionResponse(ImportantQuestionBase):
     id: str
     created_at: Optional[datetime] = None
     subject_name: Optional[str] = None
+    note_slug: Optional[str] = None

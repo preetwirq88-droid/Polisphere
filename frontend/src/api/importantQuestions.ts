@@ -8,6 +8,7 @@ export interface ImportantQuestion {
   difficulty: 'beginner' | 'intermediate' | 'advanced';
   question: string;
   note_id?: string;
+  note_slug?: string;
   created_at?: string;
   subject_name?: string;
 }

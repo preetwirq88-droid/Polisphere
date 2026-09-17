@@ -24,11 +24,13 @@ import {
 } from '../../api/importantQuestions';
 
 type Tab = 'subjects' | 'notes' | 'thinkers' | 'questions';
+type DeleteTarget = { id: string; label: string; type: 'note' | 'subject' | 'thinker' | 'question' } | null;
 
 export const AdminDashboard: React.FC = () => {
   const { admin, logout } = useAdminAuth();
   const queryClient = useQueryClient();
   const [activeTab, setActiveTab] = useState<Tab>('notes');
+  const [confirmDelete, setConfirmDelete] = useState<DeleteTarget>(null);
 
   // Form states for Modal / Adding
   const [showNoteModal, setShowNoteModal] = useState(false);
@@ -135,8 +137,48 @@ export const AdminDashboard: React.FC = () => {
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ['admin-questions'] }),
   });
 
+  const handleConfirmedDelete = () => {
+    if (!confirmDelete) return;
+    if (confirmDelete.type === 'note') deleteNoteMut.mutate(confirmDelete.id);
+    if (confirmDelete.type === 'subject') deleteSubjMut.mutate(confirmDelete.id);
+    if (confirmDelete.type === 'thinker') deleteThinkerMut.mutate(confirmDelete.id);
+    if (confirmDelete.type === 'question') deleteQuestionMut.mutate(confirmDelete.id);
+    setConfirmDelete(null);
+  };
+
   return (
     <div className="max-w-[1280px] mx-auto px-margin-mobile md:px-margin-desktop py-lg space-y-lg">
+      {/* Delete Confirmation Modal */}
+      {confirmDelete && (
+        <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="bg-surface border border-outline-variant rounded-xl p-xl max-w-sm w-full shadow-2xl space-y-md">
+            <div className="flex items-center gap-3">
+              <span className="material-symbols-outlined text-error text-[32px]">warning</span>
+              <h3 className="font-headline-sm text-headline-sm text-on-surface">Confirm Delete</h3>
+            </div>
+            <p className="font-body-md text-body-md text-on-surface-variant">
+              Are you sure you want to permanently delete{' '}
+              <strong className="text-on-surface">&ldquo;{confirmDelete.label}&rdquo;</strong>?
+              This action cannot be undone.
+            </p>
+            <div className="flex gap-sm justify-end">
+              <button
+                onClick={() => setConfirmDelete(null)}
+                className="h-[40px] px-md border border-outline-variant text-on-surface rounded-lg hover:bg-surface-container transition-colors font-label-md text-sm"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleConfirmedDelete}
+                className="h-[40px] px-md bg-error text-white rounded-lg hover:opacity-90 transition-opacity font-label-md text-sm flex items-center gap-2"
+              >
+                <span className="material-symbols-outlined text-[18px]">delete</span>
+                Delete Permanently
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
       {/* Admin Top Header */}
       <div className="bg-primary text-white p-md md:p-xl rounded-xl shadow-lg flex flex-col md:flex-row items-start md:items-center justify-between gap-md">
         <div>
@@ -258,7 +300,7 @@ export const AdminDashboard: React.FC = () => {
                     </td>
                     <td className="p-3 text-right">
                       <button
-                        onClick={() => deleteNoteMut.mutate(n.id)}
+                        onClick={() => setConfirmDelete({ id: n.id, label: n.title, type: 'note' })}
                         className="text-error hover:underline text-xs font-semibold"
                       >
                         Delete
@@ -291,7 +333,7 @@ export const AdminDashboard: React.FC = () => {
                 <div className="flex items-center justify-between">
                   <span className="material-symbols-outlined text-[24px] text-secondary">{s.icon || 'school'}</span>
                   <button
-                    onClick={() => deleteSubjMut.mutate(s.id)}
+                    onClick={() => setConfirmDelete({ id: s.id, label: s.name, type: 'subject' })}
                     className="text-error hover:underline text-xs font-semibold"
                   >
                     Delete
@@ -330,7 +372,7 @@ export const AdminDashboard: React.FC = () => {
                   <span className="text-caption text-secondary block">{t.contribution}</span>
                 </div>
                 <button
-                  onClick={() => deleteThinkerMut.mutate(t.id)}
+                  onClick={() => setConfirmDelete({ id: t.id, label: t.name, type: 'thinker' })}
                   className="text-error text-xs font-semibold hover:underline"
                 >
                   Delete
@@ -369,7 +411,7 @@ export const AdminDashboard: React.FC = () => {
                   <p className="font-headline-sm text-base text-on-surface font-semibold">"{q.question}"</p>
                 </div>
                 <button
-                  onClick={() => deleteQuestionMut.mutate(q.id)}
+                  onClick={() => setConfirmDelete({ id: q.id, label: q.question.substring(0, 60) + '...', type: 'question' })}
                   className="text-error text-xs font-semibold hover:underline whitespace-nowrap"
                 >
                   Delete

@@ -76,13 +76,18 @@ export const Home: React.FC = () => {
             {/* Suggestion Pills */}
             <div className="flex items-center gap-2 flex-wrap text-caption font-caption text-on-surface-variant pt-2">
               <span className="font-semibold text-primary">Popular:</span>
-              {['Rousseau: General Will', 'J.S. Mill: Harm Principle', 'Ambedkar: Caste', 'Social Contract Matrix'].map((tag) => (
+              {[
+                { label: 'Rousseau: General Will', to: '/notes/rousseau-general-will' },
+                { label: 'J.S. Mill: Harm Principle', to: '/thinkers/john-stuart-mill' },
+                { label: 'Ambedkar: Caste & Democracy', to: '/thinkers/b-r-ambedkar' },
+                { label: 'Social Contract Matrix', to: '/exam-prep/important-questions?topic=Social+Contract' },
+              ].map((tag) => (
                 <Link
-                  key={tag}
-                  to={`/notes/rousseau-general-will`}
+                  key={tag.label}
+                  to={tag.to}
                   className="bg-surface-container px-2.5 py-1 rounded hover:bg-surface-container-high transition-colors"
                 >
-                  {tag}
+                  {tag.label}
                 </Link>
               ))}
             </div>

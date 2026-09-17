@@ -1,16 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { getNoteBySlug, getNotes } from '../../api/notes';
 import { Breadcrumb } from '../../components/Breadcrumb/Breadcrumb';
 import { TableOfContents } from '../../components/TableOfContents/TableOfContents';
 import { ComparisonTable } from '../../components/ComparisonTable/ComparisonTable';
-import { QuoteBox } from '../../components/Callouts/QuoteBox';
-import { DefinitionBox } from '../../components/Callouts/DefinitionBox';
 
 export const NoteDetail: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
-  const [isBookmarked, setIsBookmarked] = useState(false);
+  const [shareToast, setShareToast] = useState(false);
+
+  // Persist bookmark to localStorage keyed by slug
+  const bookmarkKey = `bookmark_${slug}`;
+  const [isBookmarked, setIsBookmarked] = useState<boolean>(() => {
+    return localStorage.getItem(`bookmark_${slug}`) === 'true';
+  });
+
+  useEffect(() => {
+    localStorage.setItem(bookmarkKey, String(isBookmarked));
+  }, [isBookmarked, bookmarkKey]);
 
   const { data: note, isLoading } = useQuery({
     queryKey: ['note', slug],
@@ -47,12 +55,21 @@ export const NoteDetail: React.FC = () => {
   const handleShare = () => {
     if (navigator.clipboard) {
       navigator.clipboard.writeText(window.location.href);
-      alert('Link copied to clipboard!');
+      setShareToast(true);
+      setTimeout(() => setShareToast(false), 2500);
     }
   };
 
   return (
     <div className="max-w-[1280px] mx-auto px-margin-mobile md:px-margin-desktop py-lg">
+      {/* Share Toast Notification */}
+      {shareToast && (
+        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-on-surface text-surface px-md py-3 rounded-xl shadow-xl flex items-center gap-2 font-label-md text-sm">
+          <span className="material-symbols-outlined text-[18px] text-secondary">check_circle</span>
+          Link copied to clipboard!
+        </div>
+      )}
+
       <main className="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
         {/* Left Column: Table of Contents */}
         <TableOfContents sections={note.sections} hasComparison={!!note.comparison_table} />
@@ -88,22 +105,6 @@ export const NoteDetail: React.FC = () => {
               <h2 className="font-headline-md text-headline-md text-on-surface">
                 {sec.heading}
               </h2>
-
-              {/* Render callouts if Rousseau section */}
-              {sec.anchor === 'introduction' && slug?.includes('rousseau') && (
-                <QuoteBox
-                  quote="Each of us puts his person and all his power in common under the supreme direction of the general will, and, in our corporate capacity, we receive each member as an indivisible part of the whole."
-                  author="Jean-Jacques Rousseau"
-                  source="The Social Contract (1762)"
-                />
-              )}
-
-              {sec.anchor === 'meaning' && slug?.includes('rousseau') && (
-                <DefinitionBox
-                  title="CORE DEFINITION"
-                  definition="The General Will is the will of the citizens directed towards the common good. It is fundamentally distinct from the 'Will of All' (the aggregate of private individual self-interests)."
-                />
-              )}
 
               <div className="font-body-md text-body-md text-on-surface leading-relaxed space-y-3 whitespace-pre-line">
                 {sec.body}
