@@ -116,8 +116,14 @@ export const Home: React.FC = () => {
       <section className="max-w-[1280px] mx-auto px-margin-mobile md:px-margin-desktop">
         <div className="flex items-center justify-between mb-lg">
           <div>
-            <h2 className="font-headline-md text-headline-md text-on-surface mb-1">Core Academic Subjects</h2>
-            <p className="font-body-md text-body-md text-on-surface-variant">Explore comprehensive subject modules aligned with university syllabi.</p>
+            <h2 className="font-headline-md text-headline-md text-on-surface mb-2">
+  Explore Subjects
+</h2>
+           <p className="font-body-md text-body-md text-on-surface-variant max-w-2xl">
+  Build your foundation across political theory, governance, comparative
+  politics, and other core areas.
+</p>
+
           </div>
           <Link to="/subjects" className="text-secondary font-label-md text-label-md flex items-center hover:underline">
             View All Subjects <span className="material-symbols-outlined text-[18px] ml-1">arrow_forward</span>
@@ -137,7 +143,7 @@ export const Home: React.FC = () => {
 
       {/* Popular Notes Section */}
       <section className="bg-surface-container-low py-xl border-y border-outline-variant">
-        <div className="max-w-[1280px] mx-auto px-margin-mobile md:px-margin-desktop">
+     <section className="max-w-[1280px] mx-auto px-margin-mobile md:px-margin-desktop py-4">
           <div className="flex items-center justify-between mb-lg">
             <div>
               <h2 className="font-headline-md text-headline-md text-on-surface mb-1">Featured Academic Notes</h2>
