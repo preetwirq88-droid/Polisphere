@@ -1,6 +1,7 @@
 from motor.motor_asyncio import AsyncIOMotorClient
 from app.config import settings
 import logging
+import certifi
 
 logger = logging.getLogger(__name__)
 
@@ -14,7 +15,10 @@ def get_database():
 
 async def connect_to_mongo():
     logger.info(f"Connecting to MongoDB at {settings.MONGO_URI}...")
-    db.client = AsyncIOMotorClient(settings.MONGO_URI)
+    db.client = AsyncIOMotorClient(
+        settings.MONGO_URI,
+        tlsCAFile=certifi.where()
+    )
     database = db.client[settings.MONGO_DB_NAME]
     
     # Create indexes
