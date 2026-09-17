@@ -45,13 +45,16 @@ export const Home: React.FC = () => {
               Academic Excellence Platform
             </div>
             
-            <h1 className="font-display-lg text-display-lg-mobile md:text-display-lg text-on-surface">
-              Master Political Science with Rigorous Clarity
-            </h1>
-            
-            <p className="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">
-              Curated study notes, comparative matrix breakdowns, thinker biographies, and filterable question banks designed for modern political theory scholars.
-            </p>
+           <h1 className="font-display-lg text-display-lg-mobile md:text-display-lg text-on-surface leading-[1.05] tracking-tight">
+  Learn Political Science.
+  <span className="block text-primary">Think Beyond the Textbook.</span>
+</h1>
+
+           <p className="font-body-lg text-body-lg text-on-surface-variant max-w-2xl leading-relaxed">
+  Explore political thinkers, academic subjects, concise study notes, and
+  important questions — all organized in one focused learning platform.
+</p>
+
 
             {/* Quick Search */}
             <form onSubmit={handleSearchSubmit} className="relative max-w-xl">
@@ -64,12 +67,13 @@ export const Home: React.FC = () => {
                   placeholder="Search topics e.g. Rousseau, General Will, Harm Principle..."
                   className="w-full bg-transparent border-none text-on-surface font-body-md focus:outline-none placeholder:text-outline"
                 />
-                <button
-                  type="submit"
-                  className="bg-primary text-white px-md py-2.5 rounded-lg font-label-md text-label-md hover:bg-primary-container transition-colors"
-                >
-                  Search
-                </button>
+               <button
+  type="submit"
+  className="bg-primary text-white px-5 py-3 rounded-lg font-label-md text-label-md font-semibold hover:bg-primary-container hover:shadow-md transition-all duration-200"
+>
+  Explore
+</button>
+
               </div>
             </form>
 
