@@ -143,7 +143,7 @@ export const Home: React.FC = () => {
 
       {/* Popular Notes Section */}
       <section className="bg-surface-container-low py-xl border-y border-outline-variant">
-     <section className="max-w-[1280px] mx-auto px-margin-mobile md:px-margin-desktop py-4">
+        <div className="max-w-[1280px] mx-auto px-margin-mobile md:px-margin-desktop py-4">
           <div className="flex items-center justify-between mb-lg">
             <div>
               <h2 className="font-headline-md text-headline-md text-on-surface mb-1">Featured Academic Notes</h2>
