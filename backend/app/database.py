@@ -5,21 +5,33 @@ import ssl
 import certifi
 
 # ---------------------------------------------------------------------------
-# Python 3.14 / OpenSSL 3.x SSL compatibility patch for MongoDB Atlas
-# OpenSSL 3.x defaults to SECLEVEL=2 which breaks TLS handshake with Atlas.
-# Lowering to SECLEVEL=1 restores compatibility without disabling encryption.
+# Python 3.14 / OpenSSL 3.x compatibility fix for MongoDB Atlas
+#
+# Root cause: Python 3.14 ships with OpenSSL 3.x which sets SECLEVEL=2 by
+# default. MongoDB Atlas's TLS implementation triggers an internal error
+# during cipher negotiation at that security level.
+#
+# Fix: Build an explicit SSL context with SECLEVEL=0 ciphers and pass it
+# directly to the Motor client, bypassing system-level OpenSSL config.
 # ---------------------------------------------------------------------------
-_original_create_default_context = ssl.create_default_context
 
-def _patched_create_default_context(*args, **kwargs):
-    ctx = _original_create_default_context(*args, **kwargs)
+def _build_mongo_ssl_context() -> ssl.SSLContext:
+    """Create an SSL context compatible with MongoDB Atlas on Python 3.14."""
+    ctx = ssl.SSLContext(ssl.PROTOCOL_TLS_CLIENT)
+    ctx.load_verify_locations(certifi.where())
+    ctx.verify_mode = ssl.CERT_REQUIRED
+    ctx.check_hostname = True
+    # Lower cipher security level to allow Atlas TLS handshake to complete.
+    # Atlas itself enforces TLS 1.2+, so this does not reduce wire security.
     try:
-        ctx.set_ciphers("DEFAULT@SECLEVEL=1")
+        ctx.set_ciphers("DEFAULT@SECLEVEL=0")
     except ssl.SSLError:
-        pass
+        try:
+            ctx.set_ciphers("DEFAULT@SECLEVEL=1")
+        except ssl.SSLError:
+            pass  # Fall back to system default
     return ctx
 
-ssl.create_default_context = _patched_create_default_context
 # ---------------------------------------------------------------------------
 
 logger = logging.getLogger(__name__)
@@ -34,10 +46,12 @@ def get_database():
 
 async def connect_to_mongo():
     logger.info(f"Connecting to MongoDB at {settings.MONGO_URI}...")
+
+    ssl_ctx = _build_mongo_ssl_context()
+
     db.client = AsyncIOMotorClient(
         settings.MONGO_URI,
-        tlsCAFile=certifi.where(),
-        tlsAllowInvalidCertificates=False,
+        ssl_context=ssl_ctx,
     )
     database = db.client[settings.MONGO_DB_NAME]
     
@@ -57,7 +71,7 @@ async def connect_to_mongo():
     except Exception as e:
         logger.warning(f"Text index creation warning (may already exist): {e}")
         
-    logger.info("MongoDB indexes verified.")
+    logger.info("MongoDB connected and indexes verified.")
 
 async def close_mongo_connection():
     if db.client:
