@@ -31,7 +31,14 @@ export const NoteDetail: React.FC = () => {
     queryFn: () => getNotes(),
   });
 
-  const relatedNotes = allNotes.filter((n) => n.id !== note?.id).slice(0, 3);
+  const relatedNotes = allNotes
+    .filter((n) => note?.related_note_ids?.includes(n.id))
+    .slice(0, 3);
+
+  // Fallback: if no explicit related_note_ids, show notes from same subject (excluding current)
+  const fallbackRelated = relatedNotes.length === 0
+    ? allNotes.filter((n) => n.id !== note?.id && n.subject_id === note?.subject_id).slice(0, 3)
+    : relatedNotes;
 
   if (isLoading) {
     return <div className="text-center py-xl text-on-surface-variant">Loading note analysis...</div>;
@@ -79,7 +86,7 @@ export const NoteDetail: React.FC = () => {
           <Breadcrumb
             items={[
               { label: 'Subjects', url: '/subjects' },
-              { label: note.subject_name || 'Subject', url: `/subjects/${note.subject_name?.toLowerCase().replace(/\s+/g, '-')}` },
+              { label: note.subject_name || 'Subject', url: `/subjects/${note.subject_slug || note.subject_name?.toLowerCase().replace(/\s+/g, '-')}` },
               { label: `Unit ${note.unit_number}` },
               { label: note.title },
             ]}
@@ -100,8 +107,8 @@ export const NoteDetail: React.FC = () => {
           </header>
 
           {/* Sections Rendered */}
-          {note.sections.map((sec) => (
-            <section key={sec.anchor} id={sec.anchor} className="space-y-sm">
+          {note.sections.map((sec, index) => (
+            <section key={sec.anchor || `section-${index}`} id={sec.anchor} className="space-y-sm">
               <h2 className="font-headline-md text-headline-md text-on-surface">
                 {sec.heading}
               </h2>
@@ -163,7 +170,7 @@ export const NoteDetail: React.FC = () => {
                 Related Notes
               </h4>
               <div className="space-y-sm">
-                {relatedNotes.map((rn) => (
+                {fallbackRelated.map((rn) => (
                   <Link
                     key={rn.id}
                     to={`/notes/${rn.slug}`}

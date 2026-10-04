@@ -19,7 +19,7 @@ export const ImportantQuestions: React.FC = () => {
     queryFn: getSubjects,
   });
 
-  const { data: questions = [], isLoading, refetch } = useQuery({
+  const { data: questions = [], isLoading } = useQuery({
     queryKey: ['important-questions', selectedSubject, selectedUnit, selectedTopic, selectedDifficulty],
     queryFn: () =>
       getImportantQuestions({
@@ -44,7 +44,7 @@ export const ImportantQuestions: React.FC = () => {
     if (selectedTopic !== 'all') params.topic = selectedTopic;
     if (selectedDifficulty !== 'all') params.difficulty = selectedDifficulty;
     setSearchParams(params);
-    refetch();
+    // Note: react-query auto-refetches when queryKey (filter states) changes
   };
 
   const handleReset = () => {

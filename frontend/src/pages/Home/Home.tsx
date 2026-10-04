@@ -40,6 +40,71 @@ const STATS = [
   { value: '500+', label: 'Practice Questions', icon: 'quiz' },
 ];
 
+// ── Political Thinkers ────────────────────────────────────────────────────────
+const STATIC_THINKERS = [
+  { name: 'Plato', slug: 'plato', desc: 'Founder of political philosophy; theory of justice & the ideal state.', era: 'Ancient Greece', icon: '🏛️' },
+  { name: 'Aristotle', slug: 'aristotle', desc: 'Defined politics as the master science; classified constitutions & citizenship.', era: 'Ancient Greece', icon: '⚖️' },
+  { name: 'Machiavelli', slug: 'niccolo-machiavelli', desc: 'Pioneered realist statecraft; separated politics from morality in The Prince.', era: 'Renaissance', icon: '🦁' },
+  { name: 'Hobbes', slug: 'thomas-hobbes', desc: 'Social contract theorist; envisioned Leviathan & the state of nature.', era: '17th Century', icon: '⚔️' },
+  { name: 'Locke', slug: 'john-locke', desc: 'Father of liberalism; natural rights, consent of the governed & limited government.', era: '17th Century', icon: '🔑' },
+  { name: 'Rousseau', slug: 'jean-jacques-rousseau', desc: 'General Will theorist; champion of popular sovereignty & direct democracy.', era: '18th Century', icon: '🌿' },
+  { name: 'J.S. Mill', slug: 'john-stuart-mill', desc: 'Utilitarian liberal; harm principle, liberty, and representative government.', era: '19th Century', icon: '📖' },
+  { name: 'Marx', slug: 'karl-marx', desc: 'Historical materialism; class struggle, capitalism critique & communist theory.', era: '19th Century', icon: '✊' },
+  { name: 'Gandhi', slug: 'mahatma-gandhi', desc: 'Non-violence, Satyagraha, Swaraj & critique of modern industrial civilisation.', era: '20th Century', icon: '🕊️' },
+  { name: 'Ambedkar', slug: 'b-r-ambedkar', desc: 'Dalit liberation, constitutional democracy & annihilation of caste.', era: '20th Century', icon: '🏅' },
+  { name: 'Rawls', slug: 'john-rawls', desc: 'Theory of justice as fairness; veil of ignorance & difference principle.', era: '20th Century', icon: '⚖️' },
+];
+
+// ── Study Notes Topics ────────────────────────────────────────────────────────
+const STUDY_NOTES_TOPICS = [
+  { topic: 'Political Theory', slug: 'political-theory', desc: 'State, sovereignty, power, authority & ideological frameworks.', icon: 'gavel', color: 'from-blue-800 to-blue-600' },
+  { topic: 'Justice', slug: 'political-theory', desc: 'Distributive, social & corrective justice across key traditions.', icon: 'balance', color: 'from-violet-800 to-violet-600' },
+  { topic: 'Liberty', slug: 'political-theory', desc: 'Positive & negative liberty — Berlin, Mill, Rawls & beyond.', icon: 'lock_open', color: 'from-teal-800 to-teal-600' },
+  { topic: 'Equality', slug: 'political-theory', desc: 'Formal, substantive, and egalitarian theories of equality.', icon: 'people', color: 'from-green-800 to-green-600' },
+  { topic: 'Rights', slug: 'human-rights', desc: 'Natural rights, human rights, fundamental rights & their sources.', icon: 'diversity_3', color: 'from-pink-800 to-pink-600' },
+  { topic: 'Power', slug: 'political-theory', desc: 'Theories of power — Dahl, Lukes, Gramsci & Foucault.', icon: 'bolt', color: 'from-amber-800 to-amber-600' },
+  { topic: 'Democracy', slug: 'political-theory', desc: 'Liberal, participatory, deliberative & radical democracy.', icon: 'how_to_vote', color: 'from-indigo-800 to-indigo-600' },
+  { topic: 'Citizenship', slug: 'political-theory', desc: 'Civil, political & social citizenship — Marshall, Kymlicka.', icon: 'badge', color: 'from-orange-800 to-orange-600' },
+  { topic: 'Indian Political Thought', slug: 'indian-political-thought', desc: 'Classical traditions — Kautilya, Manu — to modern thinkers.', icon: 'account_balance', color: 'from-red-800 to-red-600' },
+  { topic: 'International Relations', slug: 'international-relations', desc: 'Realism, liberalism, constructivism & global governance.', icon: 'public', color: 'from-cyan-800 to-cyan-600' },
+];
+
+// ── UGC NET Units ─────────────────────────────────────────────────────────────
+const UGC_NET_FEATURES = [
+  {
+    icon: 'layers',
+    title: 'Unit-wise Notes',
+    desc: 'All 10 units of UGC NET Political Science covered with detailed, exam-focused notes.',
+    link: '/subjects/ugc-net-political-science',
+    linkLabel: 'Open Notes',
+    color: 'from-blue-800 to-blue-600',
+  },
+  {
+    icon: 'history_edu',
+    title: 'Previous Year Questions',
+    desc: 'Topic-wise PYQs from NET/JRF exams with trend analysis and model answers.',
+    link: '/exam-prep/pyqs',
+    linkLabel: 'Solve PYQs',
+    color: 'from-indigo-800 to-indigo-600',
+  },
+  {
+    icon: 'quiz',
+    title: 'MCQ Practice',
+    desc: '500+ topic-wise MCQs with explanations — filter by subject, unit & difficulty.',
+    link: '/exam-prep/important-questions',
+    linkLabel: 'Practice MCQs',
+    color: 'from-violet-800 to-violet-600',
+  },
+  {
+    icon: 'flash_on',
+    title: 'Quick Revision',
+    desc: 'Concise summaries, mind-maps, and key-point flashcards for last-minute prep.',
+    link: '/subjects/ugc-net-political-science',
+    linkLabel: 'Revise Now',
+    color: 'from-amber-700 to-amber-500',
+  },
+];
+
 export const Home: React.FC = () => {
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = React.useState('');
@@ -57,7 +122,7 @@ export const Home: React.FC = () => {
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (searchQuery.trim()) {
-      navigate(`/exam-prep/important-questions?topic=${encodeURIComponent(searchQuery)}`);
+      navigate(`/subjects?q=${encodeURIComponent(searchQuery)}`);
     }
   };
 
@@ -233,6 +298,210 @@ export const Home: React.FC = () => {
         </div>
       </section>
 
+      {/* ── POLITICAL THINKERS ───────────────────────────────────────────── */}
+      <section className="py-[80px] px-margin-mobile md:px-margin-desktop bg-surface" id="political-thinkers">
+        <div className="max-w-[1280px] mx-auto">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-12">
+            <div>
+              <p className="text-secondary font-label-md text-label-md uppercase tracking-widest mb-2">Political Philosophy</p>
+              <h2 className="font-headline-md text-[36px] md:text-[40px] text-on-surface leading-tight">
+                Political Thinkers
+              </h2>
+              <p className="font-body-md text-body-md text-on-surface-variant max-w-2xl mt-3">
+                Explore the ideas of thinkers who shaped political thought — from ancient Greece to modern India.
+              </p>
+            </div>
+            <Link
+              to="/thinkers"
+              className="shrink-0 inline-flex items-center gap-2 border border-secondary text-secondary px-5 py-2.5 rounded-lg font-label-md text-label-md hover:bg-surface-container transition-colors"
+            >
+              View All Thinkers
+              <span className="material-symbols-outlined text-[18px]">arrow_forward</span>
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+            {STATIC_THINKERS.map((thinker) => (
+              <div
+                key={thinker.slug}
+                className="group relative bg-surface-container-lowest border border-outline-variant rounded-2xl overflow-hidden hover:border-secondary hover:shadow-xl transition-all duration-300 flex flex-col card-hover"
+              >
+                {/* Top accent */}
+                <div className="h-1.5 w-full bg-gradient-to-r from-primary to-secondary" />
+                <div className="p-6 flex flex-col flex-1">
+                  {/* Era badge + emoji */}
+                  <div className="flex items-center justify-between mb-4">
+                    <span className="text-[28px] leading-none">{thinker.icon}</span>
+                    <span className="text-[11px] font-semibold text-secondary bg-secondary/10 px-2.5 py-1 rounded-full uppercase tracking-wide">
+                      {thinker.era}
+                    </span>
+                  </div>
+                  <h3 className="font-semibold text-[18px] text-on-surface mb-2 group-hover:text-secondary transition-colors">
+                    {thinker.name}
+                  </h3>
+                  <p className="text-on-surface-variant font-body-md text-[13px] leading-relaxed flex-1">
+                    {thinker.desc}
+                  </p>
+                  <Link
+                    to={`/thinkers/${thinker.slug}`}
+                    id={`thinker-card-${thinker.slug}`}
+                    className="mt-5 inline-flex items-center justify-center gap-2 bg-primary text-white px-4 py-2.5 rounded-xl font-label-md text-[13px] font-semibold hover:bg-secondary transition-colors duration-200 shadow-sm"
+                  >
+                    <span className="material-symbols-outlined text-[16px]">person</span>
+                    Explore
+                  </Link>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── STUDY NOTES ──────────────────────────────────────────────────── */}
+      <section className="py-[80px] px-margin-mobile md:px-margin-desktop bg-surface-container-low border-y border-outline-variant" id="study-notes">
+        <div className="max-w-[1280px] mx-auto">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-12">
+            <div>
+              <p className="text-secondary font-label-md text-label-md uppercase tracking-widest mb-2">Academic Resources</p>
+              <h2 className="font-headline-md text-[36px] md:text-[40px] text-on-surface leading-tight">
+                Study Notes
+              </h2>
+              <p className="font-body-md text-body-md text-on-surface-variant max-w-2xl mt-3">
+                Topic-wise, structured notes covering all major concepts in political science — ready for exam and classroom use.
+              </p>
+            </div>
+            <Link
+              to="/subjects"
+              className="shrink-0 inline-flex items-center gap-2 border border-secondary text-secondary px-5 py-2.5 rounded-lg font-label-md text-label-md hover:bg-surface-container transition-colors"
+            >
+              Browse All Topics
+              <span className="material-symbols-outlined text-[18px]">arrow_forward</span>
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-5">
+            {STUDY_NOTES_TOPICS.map((item) => (
+              <div
+                key={item.topic}
+                className="group relative bg-surface-container-lowest border border-outline-variant rounded-2xl overflow-hidden hover:border-secondary hover:shadow-xl transition-all duration-300 flex flex-col card-hover"
+              >
+                {/* Gradient accent top bar */}
+                <div className={`h-1.5 w-full bg-gradient-to-r ${item.color}`} />
+                <div className="p-5 flex flex-col flex-1">
+                  {/* Icon */}
+                  <div className={`w-11 h-11 rounded-xl bg-gradient-to-br ${item.color} flex items-center justify-center mb-4 shadow-md group-hover:scale-110 transition-transform duration-300`}>
+                    <span className="material-symbols-outlined text-white text-[20px]">{item.icon}</span>
+                  </div>
+                  <h3 className="font-semibold text-[15px] text-on-surface mb-1.5 group-hover:text-secondary transition-colors leading-snug">
+                    {item.topic}
+                  </h3>
+                  <p className="text-on-surface-variant font-body-md text-[12px] leading-relaxed flex-1">
+                    {item.desc}
+                  </p>
+                  <Link
+                    to={`/subjects/${item.slug}`}
+                    id={`study-notes-${item.slug}-${item.topic.toLowerCase().replace(/\s+/g, '-')}`}
+                    className="mt-4 inline-flex items-center justify-center gap-1.5 bg-surface-container border border-secondary/30 text-secondary px-3 py-2 rounded-lg font-label-md text-[12px] font-semibold hover:bg-secondary hover:text-white transition-colors duration-200"
+                  >
+                    <span className="material-symbols-outlined text-[14px]">menu_book</span>
+                    Read Notes
+                  </Link>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── UGC NET POLITICAL SCIENCE (PROMINENT) ─────────────────────────── */}
+      <section className="py-[80px] px-margin-mobile md:px-margin-desktop bg-surface" id="ugc-net">
+        <div className="max-w-[1280px] mx-auto">
+          {/* Header */}
+          <div className="text-center mb-14">
+            <span className="inline-flex items-center gap-2 bg-amber-400 text-primary px-4 py-1.5 rounded-full font-label-md font-bold text-[12px] uppercase tracking-wider mb-5">
+              <span className="material-symbols-outlined text-[14px]">verified</span>
+              Exam Preparation
+            </span>
+            <h2 className="font-headline-md text-[36px] md:text-[48px] font-bold text-on-surface leading-tight mb-4">
+              UGC NET{' '}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">
+                Political Science
+              </span>
+            </h2>
+            <p className="text-on-surface-variant font-body-md text-[16px] max-w-2xl mx-auto leading-relaxed">
+              A complete, structured preparation hub — unit-wise notes, PYQs, MCQ drills, and quick revision tools, all in one place.
+            </p>
+          </div>
+
+          {/* 4-feature cards */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+            {UGC_NET_FEATURES.map((feat) => (
+              <div
+                key={feat.title}
+                className="group relative bg-surface-container-lowest border border-outline-variant rounded-2xl overflow-hidden hover:border-secondary hover:shadow-2xl transition-all duration-300 flex flex-col card-hover"
+              >
+                <div className={`h-2 w-full bg-gradient-to-r ${feat.color}`} />
+                <div className="p-6 flex flex-col flex-1">
+                  <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${feat.color} flex items-center justify-center mb-5 shadow-lg group-hover:scale-110 transition-transform duration-300`}>
+                    <span className="material-symbols-outlined text-white text-[24px]">{feat.icon}</span>
+                  </div>
+                  <h3 className="font-semibold text-[17px] text-on-surface mb-2 group-hover:text-secondary transition-colors">
+                    {feat.title}
+                  </h3>
+                  <p className="text-on-surface-variant font-body-md text-[13px] leading-relaxed flex-1">
+                    {feat.desc}
+                  </p>
+                  <Link
+                    to={feat.link}
+                    id={`ugc-net-${feat.title.toLowerCase().replace(/\s+/g, '-')}`}
+                    className="mt-5 inline-flex items-center justify-center gap-2 border border-secondary text-secondary px-4 py-2.5 rounded-xl font-label-md text-[13px] font-semibold hover:bg-secondary hover:text-white transition-colors duration-200"
+                  >
+                    {feat.linkLabel}
+                    <span className="material-symbols-outlined text-[15px]">arrow_forward</span>
+                  </Link>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Start Preparation CTA */}
+          <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-[#0f2167] via-[#173693] to-[#0051d5] p-10 md:p-14 shadow-2xl text-center">
+            <div className="absolute -top-24 -right-24 w-[300px] h-[300px] rounded-full bg-white/5 pointer-events-none" />
+            <div className="absolute -bottom-16 -left-16 w-[250px] h-[250px] rounded-full bg-amber-400/10 pointer-events-none" />
+            <div className="relative">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-10">
+                {[
+                  { icon: 'layers', label: 'All 10 Units', sub: 'Complete syllabus' },
+                  { icon: 'quiz', label: '500+ MCQs', sub: 'Topic-wise practice' },
+                  { icon: 'history_edu', label: 'PYQ Analysis', sub: 'Trend-based prep' },
+                  { icon: 'flash_on', label: 'Quick Revision', sub: 'Flashcard-style notes' },
+                ].map((stat) => (
+                  <div key={stat.label} className="bg-white/10 border border-white/20 rounded-2xl p-5 backdrop-blur-sm">
+                    <span className="material-symbols-outlined text-amber-300 text-[28px] mb-2 block">{stat.icon}</span>
+                    <div className="text-white font-semibold text-[15px]">{stat.label}</div>
+                    <div className="text-white/60 text-[12px] mt-0.5">{stat.sub}</div>
+                  </div>
+                ))}
+              </div>
+              <h3 className="text-[28px] md:text-[36px] font-bold text-white mb-4 font-headline-md">
+                Ready to Crack UGC NET?
+              </h3>
+              <p className="text-white/70 font-body-md text-[15px] max-w-xl mx-auto mb-8">
+                Start your structured preparation today. From unit notes to MCQs to previous year papers — everything is organised for maximum efficiency.
+              </p>
+              <Link
+                to="/subjects/ugc-net-political-science"
+                id="ugc-net-start-preparation"
+                className="inline-flex items-center gap-3 bg-amber-400 text-primary px-10 py-4 rounded-2xl font-semibold font-label-md text-[16px] hover:bg-amber-300 transition-all duration-200 shadow-lg hover:shadow-amber-400/30 hover:scale-105"
+              >
+                <span className="material-symbols-outlined text-[22px]">rocket_launch</span>
+                Start Preparation
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ── UGC NET PREPARATION BANNER ────────────────────────────────────── */}
       <section className="py-[72px] px-margin-mobile md:px-margin-desktop bg-surface">
         <div className="max-w-[1280px] mx-auto">
@@ -301,7 +570,7 @@ export const Home: React.FC = () => {
               </p>
             </div>
             <Link
-              to="/subjects/modern-political-philosophy"
+              to="/subjects"
               className="shrink-0 inline-flex items-center gap-2 border border-secondary text-secondary px-5 py-2.5 rounded-lg font-label-md text-label-md hover:bg-surface-container transition-colors"
             >
               Browse All Notes

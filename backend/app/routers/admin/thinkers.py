@@ -51,7 +51,7 @@ async def admin_update_thinker(thinker_id: str, payload: ThinkerUpdate, admin: d
     except Exception:
         raise HTTPException(status_code=400, detail="Invalid thinker_id")
         
-    update_data = {k: v for k, v in payload.model_dump().items() if v is not None}
+    update_data = {k: v for k, v in payload.model_dump(exclude_unset=True).items()}
     if "related_note_ids" in update_data:
         update_data["related_note_ids"] = [ObjectId(rid) for rid in update_data["related_note_ids"] if ObjectId.is_valid(rid)]
     if "related_subject_ids" in update_data:

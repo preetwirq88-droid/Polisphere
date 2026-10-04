@@ -52,3 +52,4 @@ class NoteResponse(NoteBase):
     created_at: Optional[datetime] = None
     updated_at: Optional[datetime] = None
     subject_name: Optional[str] = None
+    subject_slug: Optional[str] = None

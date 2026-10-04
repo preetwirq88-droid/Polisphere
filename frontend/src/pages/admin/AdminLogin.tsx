@@ -3,8 +3,8 @@ import { useNavigate, Link } from 'react-router-dom';
 import { useAdminAuth } from '../../context/AdminAuthContext';
 
 export const AdminLogin: React.FC = () => {
-  const [email, setEmail] = useState('admin@polisphere.app');
-  const [password, setPassword] = useState('AdminPass123!');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 

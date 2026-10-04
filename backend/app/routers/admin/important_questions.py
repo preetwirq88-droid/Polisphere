@@ -63,7 +63,7 @@ async def admin_update_important_question(question_id: str, payload: ImportantQu
     except Exception:
         raise HTTPException(status_code=400, detail="Invalid question_id")
         
-    update_data = {k: v for k, v in payload.model_dump().items() if v is not None}
+    update_data = {k: v for k, v in payload.model_dump(exclude_unset=True).items()}
     if "subject_id" in update_data:
         try:
             update_data["subject_id"] = ObjectId(update_data["subject_id"])

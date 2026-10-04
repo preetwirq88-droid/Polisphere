@@ -42,7 +42,7 @@ async def admin_update_subject(subject_id: str, payload: SubjectUpdate, admin: d
     except Exception:
         raise HTTPException(status_code=400, detail="Invalid subject_id")
         
-    update_data = {k: v for k, v in payload.model_dump().items() if v is not None}
+    update_data = {k: v for k, v in payload.model_dump(exclude_unset=True).items()}
     update_data["updated_at"] = datetime.now(timezone.utc)
     
     result = await db.subjects.update_one({"_id": oid}, {"$set": update_data})

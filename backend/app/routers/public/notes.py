@@ -18,6 +18,7 @@ async def format_note(doc: dict) -> NoteResponse:
         subject = await db.subjects.find_one({"_id": ObjectId(doc["subject_id"])})
         if subject:
             doc["subject_name"] = subject.get("name")
+            doc["subject_slug"] = subject.get("slug")
     except Exception:
         pass
         

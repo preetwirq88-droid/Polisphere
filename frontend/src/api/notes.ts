@@ -34,6 +34,7 @@ export interface Note {
   created_at?: string;
   updated_at?: string;
   subject_name?: string;
+  subject_slug?: string;
 }
 
 export const getNotes = async (params?: { subject_id?: string; subject_slug?: string; difficulty?: string; status_filter?: string }): Promise<Note[]> => {

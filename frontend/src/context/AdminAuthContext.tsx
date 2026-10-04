@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { adminLogin, getAdminProfile } from '../api/adminAuth';
 import type { AdminProfile } from '../api/adminAuth';
 
@@ -32,7 +32,7 @@ export const AdminAuthProvider: React.FC<{ children: React.ReactNode }> = ({ chi
       setIsLoading(false);
     };
     initAuth();
-  }, [token]);
+  }, [token, logout]);
 
   const login = async (email: string, password: string) => {
     const res = await adminLogin(email, password);
@@ -41,11 +41,11 @@ export const AdminAuthProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     setAdmin({ id: 'admin', email: res.admin_email, name: res.admin_name });
   };
 
-  const logout = () => {
+  const logout = useCallback(() => {
     localStorage.removeItem('admin_token');
     setToken(null);
     setAdmin(null);
-  };
+  }, []);
 
   return (
     <AdminAuthContext.Provider value={{ token, admin, isAuthenticated: !!token, isLoading, login, logout }}>

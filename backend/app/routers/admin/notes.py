@@ -19,6 +19,7 @@ async def format_note(doc: dict) -> NoteResponse:
         subject = await db.subjects.find_one({"_id": ObjectId(doc["subject_id"])})
         if subject:
             doc["subject_name"] = subject.get("name")
+            doc["subject_slug"] = subject.get("slug")
     except Exception:
         pass
         
@@ -67,7 +68,7 @@ async def admin_update_note(note_id: str, payload: NoteUpdate, admin: dict = Dep
     except Exception:
         raise HTTPException(status_code=400, detail="Invalid note_id")
         
-    update_data = {k: v for k, v in payload.model_dump().items() if v is not None}
+    update_data = {k: v for k, v in payload.model_dump(exclude_unset=True).items()}
     if "subject_id" in update_data:
         try:
             update_data["subject_id"] = ObjectId(update_data["subject_id"])

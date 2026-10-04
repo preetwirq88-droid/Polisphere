@@ -250,7 +250,7 @@ export const AdminDashboard: React.FC = () => {
             <h2 className="font-headline-sm text-headline-sm text-on-surface">Academic Notes Repository</h2>
             <button
               onClick={() => setShowNoteModal(true)}
-              className="h-[44px] px-md bg-secondary text-white font-label-md rounded-lg hover:bg-secondaryContainer transition-colors flex items-center gap-2"
+              className="h-[44px] px-md bg-secondary text-white font-label-md rounded-lg hover:bg-secondary-container transition-colors flex items-center gap-2"
             >
               <span className="material-symbols-outlined">add</span> Create New Note
             </button>
@@ -321,7 +321,7 @@ export const AdminDashboard: React.FC = () => {
             <h2 className="font-headline-sm text-headline-sm text-on-surface">Academic Subjects</h2>
             <button
               onClick={() => setShowSubjModal(true)}
-              className="h-[44px] px-md bg-secondary text-white font-label-md rounded-lg hover:bg-secondaryContainer transition-colors flex items-center gap-2"
+              className="h-[44px] px-md bg-secondary text-white font-label-md rounded-lg hover:bg-secondary-container transition-colors flex items-center gap-2"
             >
               <span className="material-symbols-outlined">add</span> Create Subject
             </button>
@@ -357,7 +357,7 @@ export const AdminDashboard: React.FC = () => {
             <h2 className="font-headline-sm text-headline-sm text-on-surface">Political Thinkers Directory</h2>
             <button
               onClick={() => setShowThinkerModal(true)}
-              className="h-[44px] px-md bg-secondary text-white font-label-md rounded-lg hover:bg-secondaryContainer transition-colors flex items-center gap-2"
+              className="h-[44px] px-md bg-secondary text-white font-label-md rounded-lg hover:bg-secondary-container transition-colors flex items-center gap-2"
             >
               <span className="material-symbols-outlined">add</span> Create Thinker Profile
             </button>
@@ -395,7 +395,7 @@ export const AdminDashboard: React.FC = () => {
                 }
                 setShowQuestionModal(true);
               }}
-              className="h-[44px] px-md bg-secondary text-white font-label-md rounded-lg hover:bg-secondaryContainer transition-colors flex items-center gap-2"
+              className="h-[44px] px-md bg-secondary text-white font-label-md rounded-lg hover:bg-secondary-container transition-colors flex items-center gap-2"
             >
               <span className="material-symbols-outlined">add</span> Add Question
             </button>
