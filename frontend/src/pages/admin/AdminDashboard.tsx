@@ -15,6 +15,7 @@ import {
 import {
   adminGetThinkers,
   adminCreateThinker,
+  adminUpdateThinker,
   adminDeleteThinker,
 } from '../../api/thinkers';
 import {
@@ -25,12 +26,14 @@ import {
 
 type Tab = 'subjects' | 'notes' | 'thinkers' | 'questions';
 type DeleteTarget = { id: string; label: string; type: 'note' | 'subject' | 'thinker' | 'question' } | null;
+type EditThinkerTarget = { id: string; name: string; slug: string; portrait_url: string; contribution: string; bio: string; key_works: string[] } | null;
 
 export const AdminDashboard: React.FC = () => {
   const { admin, logout } = useAdminAuth();
   const queryClient = useQueryClient();
   const [activeTab, setActiveTab] = useState<Tab>('notes');
   const [confirmDelete, setConfirmDelete] = useState<DeleteTarget>(null);
+  const [editThinker, setEditThinker] = useState<EditThinkerTarget>(null);
 
   // Form states for Modal / Adding
   const [showNoteModal, setShowNoteModal] = useState(false);
@@ -122,6 +125,15 @@ export const AdminDashboard: React.FC = () => {
   const deleteThinkerMut = useMutation({
     mutationFn: adminDeleteThinker,
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ['admin-thinkers'] }),
+  });
+
+  const updateThinkerMut = useMutation({
+    mutationFn: ({ id, data }: { id: string; data: Partial<typeof thinkerForm> }) =>
+      adminUpdateThinker(id, data),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['admin-thinkers'] });
+      setEditThinker(null);
+    },
   });
 
   const createQuestionMut = useMutation({
@@ -366,17 +378,25 @@ export const AdminDashboard: React.FC = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-gutter">
             {thinkers.map((t) => (
               <div key={t.id} className="bg-surface border border-outline-variant rounded-xl p-md shadow-sm flex items-center gap-3">
-                <img src={t.portrait_url} alt={t.name} className="w-14 h-14 rounded-lg object-cover bg-surface-container" />
-                <div className="flex-grow">
-                  <h4 className="font-label-md text-on-surface font-semibold">{t.name}</h4>
-                  <span className="text-caption text-secondary block">{t.contribution}</span>
+                <img src={t.portrait_url} alt={t.name} className="w-14 h-14 rounded-lg object-cover bg-surface-container flex-shrink-0" />
+                <div className="flex-grow min-w-0">
+                  <h4 className="font-label-md text-on-surface font-semibold truncate">{t.name}</h4>
+                  <span className="text-caption text-secondary block truncate">{t.contribution}</span>
                 </div>
-                <button
-                  onClick={() => setConfirmDelete({ id: t.id, label: t.name, type: 'thinker' })}
-                  className="text-error text-xs font-semibold hover:underline"
-                >
-                  Delete
-                </button>
+                <div className="flex flex-col gap-1 flex-shrink-0">
+                  <button
+                    onClick={() => setEditThinker({ id: t.id, name: t.name, slug: t.slug, portrait_url: t.portrait_url, contribution: t.contribution, bio: t.bio, key_works: t.key_works })}
+                    className="text-secondary text-xs font-semibold hover:underline"
+                  >
+                    Edit
+                  </button>
+                  <button
+                    onClick={() => setConfirmDelete({ id: t.id, label: t.name, type: 'thinker' })}
+                    className="text-error text-xs font-semibold hover:underline"
+                  >
+                    Delete
+                  </button>
+                </div>
               </div>
             ))}
           </div>
@@ -713,6 +733,105 @@ export const AdminDashboard: React.FC = () => {
           </div>
         </div>
       )}
+      {/* Modal: Edit Thinker */}
+      {editThinker && (
+        <div className="fixed inset-0 z-50 bg-primary/40 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="bg-surface border border-outline-variant rounded-xl p-xl max-w-md w-full space-y-md max-h-[90vh] overflow-y-auto">
+            <h3 className="font-headline-sm text-headline-sm text-on-surface">Edit Thinker Profile</h3>
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                updateThinkerMut.mutate({ id: editThinker.id, data: {
+                  name: editThinker.name,
+                  slug: editThinker.slug,
+                  portrait_url: editThinker.portrait_url,
+                  contribution: editThinker.contribution,
+                  bio: editThinker.bio,
+                  key_works: editThinker.key_works,
+                }});
+              }}
+              className="space-y-sm"
+            >
+              <div>
+                <label className="text-caption font-semibold text-on-surface block">Full Name</label>
+                <input
+                  type="text" required
+                  value={editThinker.name}
+                  onChange={(e) => setEditThinker({ ...editThinker, name: e.target.value })}
+                  className="w-full bg-surface-container-lowest border border-outline-variant p-2 rounded text-sm"
+                />
+              </div>
+              <div>
+                <label className="text-caption font-semibold text-on-surface block">URL Slug</label>
+                <input
+                  type="text" required
+                  value={editThinker.slug}
+                  onChange={(e) => setEditThinker({ ...editThinker, slug: e.target.value })}
+                  className="w-full bg-surface-container-lowest border border-outline-variant p-2 rounded text-sm font-mono"
+                />
+              </div>
+              <div>
+                <label className="text-caption font-semibold text-on-surface block">Core Contribution / Label</label>
+                <input
+                  type="text" required
+                  value={editThinker.contribution}
+                  onChange={(e) => setEditThinker({ ...editThinker, contribution: e.target.value })}
+                  className="w-full bg-surface-container-lowest border border-outline-variant p-2 rounded text-sm"
+                />
+              </div>
+              <div>
+                <label className="text-caption font-semibold text-on-surface block">Biography</label>
+                <textarea
+                  required rows={4}
+                  value={editThinker.bio}
+                  onChange={(e) => setEditThinker({ ...editThinker, bio: e.target.value })}
+                  className="w-full bg-surface-container-lowest border border-outline-variant p-2 rounded text-sm"
+                />
+              </div>
+              <div>
+                <label className="text-caption font-semibold text-on-surface block">Portrait URL</label>
+                <input
+                  type="text"
+                  value={editThinker.portrait_url}
+                  onChange={(e) => setEditThinker({ ...editThinker, portrait_url: e.target.value })}
+                  className="w-full bg-surface-container-lowest border border-outline-variant p-2 rounded text-sm font-mono"
+                />
+              </div>
+              <div>
+                <label className="text-caption font-semibold text-on-surface block">Key Works (comma-separated)</label>
+                <input
+                  type="text"
+                  value={editThinker.key_works.join(', ')}
+                  onChange={(e) =>
+                    setEditThinker({
+                      ...editThinker,
+                      key_works: e.target.value.split(',').map((w) => w.trim()).filter(Boolean),
+                    })
+                  }
+                  className="w-full bg-surface-container-lowest border border-outline-variant p-2 rounded text-sm"
+                />
+              </div>
+              <div className="flex justify-end gap-2 pt-2">
+                <button
+                  type="button"
+                  onClick={() => setEditThinker(null)}
+                  className="px-4 py-2 border border-outline-variant rounded text-sm font-label-md"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={updateThinkerMut.isPending}
+                  className="px-4 py-2 bg-secondary text-white rounded text-sm font-label-md hover:opacity-90 disabled:opacity-60"
+                >
+                  {updateThinkerMut.isPending ? 'Saving…' : 'Save Changes'}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
       {/* Modal: Create Thinker */}
       {showThinkerModal && (
         <div className="fixed inset-0 z-50 bg-primary/40 backdrop-blur-sm flex items-center justify-center p-4">
