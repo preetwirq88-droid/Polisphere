@@ -10,9 +10,14 @@ router = APIRouter(prefix="/admin/thinkers", tags=["Admin Thinkers"])
 
 def format_thinker(doc: dict) -> ThinkerResponse:
     doc["id"] = str(doc["_id"])
-    if "related_note_ids" in doc and doc["related_note_ids"]:
+    doc.setdefault("related_note_ids", [])
+    doc.setdefault("related_subject_ids", [])
+    doc.setdefault("key_works", [])
+    doc.setdefault("bio", "")
+    doc.setdefault("contribution", "")
+    if doc["related_note_ids"]:
         doc["related_note_ids"] = [str(rid) for rid in doc["related_note_ids"]]
-    if "related_subject_ids" in doc and doc["related_subject_ids"]:
+    if doc["related_subject_ids"]:
         doc["related_subject_ids"] = [str(sid) for sid in doc["related_subject_ids"]]
     return ThinkerResponse(**doc)
 
