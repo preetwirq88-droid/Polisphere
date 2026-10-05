@@ -9,17 +9,20 @@ from app.models.thinker import ThinkerCreate, ThinkerUpdate, ThinkerResponse
 router = APIRouter(prefix="/admin/thinkers", tags=["Admin Thinkers"])
 
 def format_thinker(doc: dict) -> ThinkerResponse:
-    doc["id"] = str(doc["_id"])
-    doc.setdefault("related_note_ids", [])
-    doc.setdefault("related_subject_ids", [])
-    doc.setdefault("key_works", [])
-    doc.setdefault("bio", "")
-    doc.setdefault("contribution", "")
-    if doc["related_note_ids"]:
-        doc["related_note_ids"] = [str(rid) for rid in doc["related_note_ids"]]
-    if doc["related_subject_ids"]:
-        doc["related_subject_ids"] = [str(sid) for sid in doc["related_subject_ids"]]
-    return ThinkerResponse(**doc)
+    clean: dict = {
+        "id": str(doc["_id"]),
+        "slug": doc.get("slug", ""),
+        "name": doc.get("name", ""),
+        "portrait_url": doc.get("portrait_url", ""),
+        "contribution": doc.get("contribution", ""),
+        "bio": doc.get("bio", ""),
+        "key_works": [str(w) for w in doc.get("key_works", [])],
+        "related_note_ids": [str(rid) for rid in doc.get("related_note_ids", [])],
+        "related_subject_ids": [str(sid) for sid in doc.get("related_subject_ids", [])],
+        "created_at": doc.get("created_at"),
+        "updated_at": doc.get("updated_at"),
+    }
+    return ThinkerResponse(**clean)
 
 @router.get("", response_model=List[ThinkerResponse])
 async def admin_list_thinkers(admin: dict = Depends(get_current_admin)):

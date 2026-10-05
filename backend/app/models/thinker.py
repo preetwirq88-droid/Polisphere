@@ -5,10 +5,10 @@ from datetime import datetime
 class ThinkerBase(BaseModel):
     slug: str
     name: str
-    portrait_url: str
-    contribution: str
+    portrait_url: str = ""
+    contribution: str = ""
     key_works: List[str] = []
-    bio: str
+    bio: str = ""
     related_note_ids: List[str] = []
     related_subject_ids: List[str] = []
 

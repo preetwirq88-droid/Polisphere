@@ -8,9 +8,10 @@ export const ThinkerListing: React.FC = () => {
   const [search, setSearch] = useState('');
   const [selectedContribution, setSelectedContribution] = useState('all');
 
-  const { data: thinkers = [], isLoading } = useQuery({
+  const { data: thinkers = [], isLoading, isError } = useQuery({
     queryKey: ['thinkers-list-page'],
     queryFn: getThinkers,
+    retry: 1,
   });
 
   // Derive unique contribution labels for filter
@@ -129,6 +130,21 @@ export const ThinkerListing: React.FC = () => {
             <div key={i} className="h-72 rounded-xl bg-surface-container animate-pulse" />
           ))}
         </div>
+      ) : isError ? (
+        <div className="bg-surface border border-error/30 rounded-xl p-xl text-center space-y-sm">
+          <span className="material-symbols-outlined text-[48px] text-error block">wifi_off</span>
+          <p className="font-headline-sm text-headline-sm text-on-surface">Could not load thinkers</p>
+          <p className="font-body-md text-on-surface-variant">
+            The server is unavailable or still starting up. Please refresh in a moment.
+          </p>
+          <button
+            onClick={() => window.location.reload()}
+            className="inline-flex items-center gap-2 mt-2 h-[40px] px-md bg-secondary text-white rounded-lg font-label-md text-sm hover:opacity-90 transition-opacity"
+          >
+            <span className="material-symbols-outlined text-[18px]">refresh</span>
+            Retry
+          </button>
+        </div>
       ) : filtered.length === 0 ? (
         <div className="bg-surface border border-outline-variant rounded-xl p-xl text-center space-y-sm">
           <span className="material-symbols-outlined text-[48px] text-outline block">person_search</span>
@@ -151,6 +167,7 @@ export const ThinkerListing: React.FC = () => {
           ))}
         </div>
       )}
+
     </div>
   );
 };
