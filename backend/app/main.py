@@ -13,14 +13,22 @@ from app.routers.admin import subjects as admin_subjects
 from app.routers.admin import notes as admin_notes
 from app.routers.admin import thinkers as admin_thinkers
 from app.routers.admin import important_questions as admin_important_questions
+import traceback
+
+# Captured at startup so /health can report it
+_mongo_startup_error: str = ""
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
+    global _mongo_startup_error
     try:
         await connect_to_mongo()
+        _mongo_startup_error = ""
         print("MongoDB connected successfully.")
     except Exception as e:
-        print(f"MongoDB connection failed: {e}")
+        _mongo_startup_error = f"{type(e).__name__}: {e}"
+        print(f"MongoDB connection FAILED: {_mongo_startup_error}")
+        traceback.print_exc()
         print("Starting API without MongoDB connection.")
     yield
     try:
@@ -35,11 +43,12 @@ app = FastAPI(
     lifespan=lifespan
 )
 
-# CORS Middleware
+# CORS — allow all origins so no browser preflight blocks debugging.
+# (allow_credentials must be False when allow_origins=["*"])
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=settings.cors_origins_list,
-    allow_credentials=True,
+    allow_origins=["*"],
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )
@@ -64,4 +73,28 @@ async def root():
         "app": "POLISPHERE Academic Hub API",
         "status": "online",
         "docs_url": "/docs"
+    }
+
+@app.get("/health")
+async def health():
+    """Diagnostic: live MongoDB ping + startup error report."""
+    from app.database import db
+    from motor.motor_asyncio import AsyncIOMotorClient
+
+    live_ok = False
+    live_error = ""
+    try:
+        test_client = AsyncIOMotorClient(settings.MONGO_URI, serverSelectionTimeoutMS=8000)
+        await test_client.admin.command("ping")
+        live_ok = True
+        test_client.close()
+    except Exception as e:
+        live_error = f"{type(e).__name__}: {str(e)[:600]}"
+
+    return {
+        "db_client_initialized": db.client is not None,
+        "startup_error": _mongo_startup_error or None,
+        "live_ping_ok": live_ok,
+        "live_ping_error": live_error or None,
+        "mongo_uri_host": settings.MONGO_URI.split("@")[-1][:60] if "@" in settings.MONGO_URI else "no-credentials-in-uri",
     }
