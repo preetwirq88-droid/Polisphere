@@ -16,15 +16,22 @@ def get_database():
     return db.client[settings.MONGO_DB_NAME]
 
 async def connect_to_mongo():
-    logger.info(f"Connecting to MongoDB...")
+    logger.info("Connecting to MongoDB...")
 
-    # Standard Motor + Atlas connection — works on Python 3.11/3.12 (Render runtime).
-    # Motor handles TLS automatically for mongodb+srv:// URIs.
-    db.client = AsyncIOMotorClient(settings.MONGO_URI)
+    # Create client first, but only assign to db.client after a successful ping.
+    # This ensures get_database() returns a proper 503 (not an unhandled 500) if
+    # the Atlas cluster is unreachable.
+    client = AsyncIOMotorClient(
+        settings.MONGO_URI,
+        serverSelectionTimeoutMS=10000,
+    )
 
-    # Ping to verify the connection works before continuing
-    await db.client.admin.command("ping")
+    # Ping to verify the connection works before we expose the client
+    await client.admin.command("ping")
     logger.info("MongoDB connected and pinged successfully.")
+
+    # Only assign after successful ping
+    db.client = client
 
     database = db.client[settings.MONGO_DB_NAME]
 
