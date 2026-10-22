@@ -78,7 +78,7 @@ export const AdminDashboard: React.FC = () => {
   // Queries
   const { data: subjects = [] } = useQuery({ queryKey: ['admin-subjects'], queryFn: adminGetSubjects });
   const { data: notes = [] } = useQuery({ queryKey: ['admin-notes'], queryFn: adminGetNotes });
-  const { data: thinkers = [] } = useQuery({ queryKey: ['admin-thinkers'], queryFn: adminGetThinkers });
+  const { data: thinkers = [], isLoading: thinkersLoading, isError: thinkersError } = useQuery({ queryKey: ['admin-thinkers'], queryFn: adminGetThinkers });
   const { data: questions = [] } = useQuery({ queryKey: ['admin-questions'], queryFn: adminGetImportantQuestions });
 
   // Mutations
@@ -375,31 +375,51 @@ export const AdminDashboard: React.FC = () => {
             </button>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-gutter">
-            {thinkers.map((t) => (
-              <div key={t.id} className="bg-surface border border-outline-variant rounded-xl p-md shadow-sm flex items-center gap-3">
-                <img src={t.portrait_url} alt={t.name} className="w-14 h-14 rounded-lg object-cover bg-surface-container flex-shrink-0" />
-                <div className="flex-grow min-w-0">
-                  <h4 className="font-label-md text-on-surface font-semibold truncate">{t.name}</h4>
-                  <span className="text-caption text-secondary block truncate">{t.contribution}</span>
+          {thinkersLoading ? (
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+              {[1, 2, 3].map((i) => (
+                <div key={i} className="h-20 rounded-xl bg-surface-container animate-pulse" />
+              ))}
+            </div>
+          ) : thinkersError ? (
+            <div className="bg-surface border border-error/30 rounded-xl p-xl text-center space-y-sm">
+              <span className="material-symbols-outlined text-[40px] text-error block">wifi_off</span>
+              <p className="font-headline-sm text-headline-sm text-on-surface">Could not load thinkers</p>
+              <p className="font-body-md text-on-surface-variant text-sm">The backend may be starting up. Please wait a moment and refresh.</p>
+            </div>
+          ) : thinkers.length === 0 ? (
+            <div className="bg-surface border border-outline-variant rounded-xl p-xl text-center space-y-sm">
+              <span className="material-symbols-outlined text-[40px] text-outline block">person_off</span>
+              <p className="font-headline-sm text-headline-sm text-on-surface">No thinkers in database</p>
+              <p className="font-body-md text-on-surface-variant text-sm">Use the <strong>"Create Thinker Profile"</strong> button above to add your first thinker, or run the seed script to populate with sample data.</p>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+              {thinkers.map((t) => (
+                <div key={t.id} className="bg-surface border border-outline-variant rounded-xl p-md shadow-sm flex items-center gap-3">
+                  <img src={t.portrait_url} alt={t.name} className="w-14 h-14 rounded-lg object-cover bg-surface-container flex-shrink-0" onError={(e) => { (e.target as HTMLImageElement).src = `https://ui-avatars.com/api/?name=${encodeURIComponent(t.name)}&background=1e3a5f&color=fff&size=56`; }} />
+                  <div className="flex-grow min-w-0">
+                    <h4 className="font-label-md text-on-surface font-semibold truncate">{t.name}</h4>
+                    <span className="text-caption text-secondary block truncate">{t.contribution}</span>
+                  </div>
+                  <div className="flex flex-col gap-1 flex-shrink-0">
+                    <button
+                      onClick={() => setEditThinker({ id: t.id, name: t.name, slug: t.slug, portrait_url: t.portrait_url, contribution: t.contribution, bio: t.bio, key_works: t.key_works })}
+                      className="text-secondary text-xs font-semibold hover:underline"
+                    >
+                      Edit
+                    </button>
+                    <button
+                      onClick={() => setConfirmDelete({ id: t.id, label: t.name, type: 'thinker' })}
+                      className="text-error text-xs font-semibold hover:underline"
+                    >
+                      Delete
+                    </button>
+                  </div>
                 </div>
-                <div className="flex flex-col gap-1 flex-shrink-0">
-                  <button
-                    onClick={() => setEditThinker({ id: t.id, name: t.name, slug: t.slug, portrait_url: t.portrait_url, contribution: t.contribution, bio: t.bio, key_works: t.key_works })}
-                    className="text-secondary text-xs font-semibold hover:underline"
-                  >
-                    Edit
-                  </button>
-                  <button
-                    onClick={() => setConfirmDelete({ id: t.id, label: t.name, type: 'thinker' })}
-                    className="text-error text-xs font-semibold hover:underline"
-                  >
-                    Delete
-                  </button>
-                </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
         </div>
       )}
 

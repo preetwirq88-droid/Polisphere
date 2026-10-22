@@ -1,6 +1,7 @@
 from motor.motor_asyncio import AsyncIOMotorClient
 from fastapi import HTTPException
 from app.config import settings
+import certifi
 import logging
 
 logger = logging.getLogger(__name__)
@@ -24,6 +25,7 @@ async def connect_to_mongo():
     client = AsyncIOMotorClient(
         settings.MONGO_URI,
         serverSelectionTimeoutMS=10000,
+        tlsCAFile=certifi.where(),
     )
 
     # Ping to verify the connection works before we expose the client

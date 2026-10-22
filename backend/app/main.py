@@ -84,7 +84,8 @@ async def health():
     live_ok = False
     live_error = ""
     try:
-        test_client = AsyncIOMotorClient(settings.MONGO_URI, serverSelectionTimeoutMS=8000)
+        import certifi
+        test_client = AsyncIOMotorClient(settings.MONGO_URI, serverSelectionTimeoutMS=8000, tlsCAFile=certifi.where())
         await test_client.admin.command("ping")
         live_ok = True
         test_client.close()

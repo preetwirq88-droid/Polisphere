@@ -5,7 +5,7 @@ from app.config import settings
 from app.security import get_password_hash
 
 async def seed():
-    print(f"Connecting to MongoDB at {settings.MONGO_URI}...")
+    print("Connecting to MongoDB...")
     client = AsyncIOMotorClient(settings.MONGO_URI)
     db = client[settings.MONGO_DB_NAME]
 
