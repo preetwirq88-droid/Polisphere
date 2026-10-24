@@ -40,20 +40,7 @@ const STATS = [
   { value: '500+', label: 'Practice Questions', icon: 'quiz' },
 ];
 
-// ── Political Thinkers ────────────────────────────────────────────────────────
-const STATIC_THINKERS = [
-  { name: 'Plato', slug: 'plato', desc: 'Founder of political philosophy; theory of justice & the ideal state.', era: 'Ancient Greece', icon: '🏛️' },
-  { name: 'Aristotle', slug: 'aristotle', desc: 'Defined politics as the master science; classified constitutions & citizenship.', era: 'Ancient Greece', icon: '⚖️' },
-  { name: 'Machiavelli', slug: 'niccolo-machiavelli', desc: 'Pioneered realist statecraft; separated politics from morality in The Prince.', era: 'Renaissance', icon: '🦁' },
-  { name: 'Hobbes', slug: 'thomas-hobbes', desc: 'Social contract theorist; envisioned Leviathan & the state of nature.', era: '17th Century', icon: '⚔️' },
-  { name: 'Locke', slug: 'john-locke', desc: 'Father of liberalism; natural rights, consent of the governed & limited government.', era: '17th Century', icon: '🔑' },
-  { name: 'Rousseau', slug: 'jean-jacques-rousseau', desc: 'General Will theorist; champion of popular sovereignty & direct democracy.', era: '18th Century', icon: '🌿' },
-  { name: 'J.S. Mill', slug: 'john-stuart-mill', desc: 'Utilitarian liberal; harm principle, liberty, and representative government.', era: '19th Century', icon: '📖' },
-  { name: 'Marx', slug: 'karl-marx', desc: 'Historical materialism; class struggle, capitalism critique & communist theory.', era: '19th Century', icon: '✊' },
-  { name: 'Gandhi', slug: 'mahatma-gandhi', desc: 'Non-violence, Satyagraha, Swaraj & critique of modern industrial civilisation.', era: '20th Century', icon: '🕊️' },
-  { name: 'Ambedkar', slug: 'b-r-ambedkar', desc: 'Dalit liberation, constitutional democracy & annihilation of caste.', era: '20th Century', icon: '🏅' },
-  { name: 'Rawls', slug: 'john-rawls', desc: 'Theory of justice as fairness; veil of ignorance & difference principle.', era: '20th Century', icon: '⚖️' },
-];
+
 
 // ── Study Notes Topics ────────────────────────────────────────────────────────
 const STUDY_NOTES_TOPICS = [
@@ -114,7 +101,7 @@ export const Home: React.FC = () => {
     queryFn: () => getNotes(),
   });
 
-  const { data: thinkers = [], isLoading: isThinkersLoading } = useQuery({
+  const { data: thinkers = [], isLoading: isThinkersLoading, isError: isThinkersError } = useQuery({
     queryKey: ['thinkers-home'],
     queryFn: getThinkers,
   });
@@ -293,65 +280,6 @@ export const Home: React.FC = () => {
                   {topic.label}
                 </span>
               </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── POLITICAL THINKERS ───────────────────────────────────────────── */}
-      <section className="py-[80px] px-margin-mobile md:px-margin-desktop bg-surface" id="political-thinkers">
-        <div className="max-w-[1280px] mx-auto">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-12">
-            <div>
-              <p className="text-secondary font-label-md text-label-md uppercase tracking-widest mb-2">Political Philosophy</p>
-              <h2 className="font-headline-md text-[36px] md:text-[40px] text-on-surface leading-tight">
-                Political Thinkers
-              </h2>
-              <p className="font-body-md text-body-md text-on-surface-variant max-w-2xl mt-3">
-                Explore the ideas of thinkers who shaped political thought — from ancient Greece to modern India.
-              </p>
-            </div>
-            <Link
-              to="/thinkers"
-              className="shrink-0 inline-flex items-center gap-2 border border-secondary text-secondary px-5 py-2.5 rounded-lg font-label-md text-label-md hover:bg-surface-container transition-colors"
-            >
-              View All Thinkers
-              <span className="material-symbols-outlined text-[18px]">arrow_forward</span>
-            </Link>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-            {STATIC_THINKERS.map((thinker) => (
-              <div
-                key={thinker.slug}
-                className="group relative bg-surface-container-lowest border border-outline-variant rounded-2xl overflow-hidden hover:border-secondary hover:shadow-xl transition-all duration-300 flex flex-col card-hover"
-              >
-                {/* Top accent */}
-                <div className="h-1.5 w-full bg-gradient-to-r from-primary to-secondary" />
-                <div className="p-6 flex flex-col flex-1">
-                  {/* Era badge + emoji */}
-                  <div className="flex items-center justify-between mb-4">
-                    <span className="text-[28px] leading-none">{thinker.icon}</span>
-                    <span className="text-[11px] font-semibold text-secondary bg-secondary/10 px-2.5 py-1 rounded-full uppercase tracking-wide">
-                      {thinker.era}
-                    </span>
-                  </div>
-                  <h3 className="font-semibold text-[18px] text-on-surface mb-2 group-hover:text-secondary transition-colors">
-                    {thinker.name}
-                  </h3>
-                  <p className="text-on-surface-variant font-body-md text-[13px] leading-relaxed flex-1">
-                    {thinker.desc}
-                  </p>
-                  <Link
-                    to={`/thinkers/${thinker.slug}`}
-                    id={`thinker-card-${thinker.slug}`}
-                    className="mt-5 inline-flex items-center justify-center gap-2 bg-primary text-white px-4 py-2.5 rounded-xl font-label-md text-[13px] font-semibold hover:bg-secondary transition-colors duration-200 shadow-sm"
-                  >
-                    <span className="material-symbols-outlined text-[16px]">person</span>
-                    Explore
-                  </Link>
-                </div>
-              </div>
             ))}
           </div>
         </div>
@@ -620,6 +548,15 @@ export const Home: React.FC = () => {
                 <div key={i} className="h-48 rounded-2xl bg-surface-container animate-pulse" />
               ))}
             </div>
+          ) : isThinkersError ? (
+            <div className="bg-surface border border-outline-variant rounded-xl p-8 text-center space-y-3">
+              <span className="material-symbols-outlined text-[40px] text-outline block">wifi_off</span>
+              <p className="font-headline-sm text-headline-sm text-on-surface">Thinkers unavailable right now</p>
+              <p className="font-body-md text-on-surface-variant text-sm">
+                The server could not be reached. Try again shortly or{' '}
+                <Link to="/thinkers" className="text-secondary hover:underline font-semibold">browse the full list</Link>.
+              </p>
+            </div>
           ) : thinkers.length > 0 ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-gutter">
               {thinkers.slice(0, 6).map((thinker) => (
@@ -627,7 +564,13 @@ export const Home: React.FC = () => {
               ))}
             </div>
           ) : (
-            <p className="text-center text-on-surface-variant py-xl font-body-md">Thinkers loading from database…</p>
+            <div className="bg-surface border border-outline-variant rounded-xl p-8 text-center space-y-3">
+              <span className="material-symbols-outlined text-[40px] text-outline block">person_search</span>
+              <p className="font-body-md text-on-surface-variant">No thinker profiles have been added yet.</p>
+              <Link to="/thinkers" className="inline-flex items-center gap-1 text-secondary hover:underline font-semibold text-sm">
+                Go to Thinkers page <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
+              </Link>
+            </div>
           )}
         </div>
       </section>
