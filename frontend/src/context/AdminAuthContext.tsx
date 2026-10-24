@@ -18,6 +18,12 @@ export const AdminAuthProvider: React.FC<{ children: React.ReactNode }> = ({ chi
   const [admin, setAdmin] = useState<AdminProfile | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
+  const logout = useCallback(() => {
+    localStorage.removeItem('admin_token');
+    setToken(null);
+    setAdmin(null);
+  }, []);
+
   useEffect(() => {
     const initAuth = async () => {
       if (token) {
@@ -40,12 +46,6 @@ export const AdminAuthProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     setToken(res.access_token);
     setAdmin({ id: 'admin', email: res.admin_email, name: res.admin_name });
   };
-
-  const logout = useCallback(() => {
-    localStorage.removeItem('admin_token');
-    setToken(null);
-    setAdmin(null);
-  }, []);
 
   return (
     <AdminAuthContext.Provider value={{ token, admin, isAuthenticated: !!token, isLoading, login, logout }}>
