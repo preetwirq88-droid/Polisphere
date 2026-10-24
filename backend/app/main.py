@@ -77,15 +77,40 @@ async def root():
 
 @app.get("/health")
 async def health():
-    """Diagnostic: live MongoDB ping + startup error report."""
-    from app.database import db
+    """Diagnostic: live MongoDB ping + startup error report.
+    Never exposes credentials — only structural URI metadata is returned.
+    """
+    from app.database import db, _encode_mongo_uri
     from motor.motor_asyncio import AsyncIOMotorClient
+    from urllib.parse import urlparse
 
-    live_ok = False
+    # ── Credential-safe structural diagnostics ────────────────────────────
+    raw_uri = settings.MONGO_URI or ""
+    parsed  = urlparse(raw_uri)
+
+    uri_diagnostics = {
+        "scheme":              parsed.scheme or "MISSING",
+        "has_at_sign":         "@" in raw_uri,
+        "at_sign_count":       raw_uri.count("@"),
+        "has_credentials":     bool(parsed.username and parsed.password),
+        "hostname_present":    bool(parsed.hostname),
+        "uri_length":          len(raw_uri),
+        "is_default_fallback": raw_uri == "mongodb://localhost:27017",
+        # Shows only host[:port]/query after the last @ — never user:pass
+        "host_hint": raw_uri.split("@")[-1][:60] if "@" in raw_uri else "no-@-in-uri",
+    }
+
+    # ── Live ping — uses the same encoded URI as startup ──────────────────
+    live_ok    = False
     live_error = ""
     try:
         import certifi
-        test_client = AsyncIOMotorClient(settings.MONGO_URI, serverSelectionTimeoutMS=8000, tlsCAFile=certifi.where())
+        safe_uri    = _encode_mongo_uri(raw_uri)
+        test_client = AsyncIOMotorClient(
+            safe_uri,
+            serverSelectionTimeoutMS=8000,
+            tlsCAFile=certifi.where(),
+        )
         await test_client.admin.command("ping")
         live_ok = True
         test_client.close()
@@ -94,8 +119,9 @@ async def health():
 
     return {
         "db_client_initialized": db.client is not None,
-        "startup_error": _mongo_startup_error or None,
-        "live_ping_ok": live_ok,
-        "live_ping_error": live_error or None,
-        "mongo_uri_host": settings.MONGO_URI.split("@")[-1][:60] if "@" in settings.MONGO_URI else "no-credentials-in-uri",
+        "startup_error":         _mongo_startup_error or None,
+        "live_ping_ok":          live_ok,
+        "live_ping_error":       live_error or None,
+        "uri_diagnostics":       uri_diagnostics,
     }
+
