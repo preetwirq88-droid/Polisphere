@@ -55,8 +55,9 @@ export const SubjectDetail: React.FC = () => {
   }
 
   // Group notes by unit number
+  const units = subject.units || [];
   const unitsMap = new Map<number, typeof notes>();
-  subject.units.forEach((u) => unitsMap.set(u.unit_number, []));
+  units.forEach((u) => unitsMap.set(u.unit_number, []));
   notes.forEach((n) => {
     const list = unitsMap.get(n.unit_number) || [];
     list.push(n);
@@ -124,7 +125,7 @@ export const SubjectDetail: React.FC = () => {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
         {/* Left/Center Column: Units and Notes */}
         <div className="lg:col-span-8 space-y-xl">
-          {subject.units.map((unit) => {
+          {units.map((unit) => {
             const unitNotes = unitsMap.get(unit.unit_number) || [];
             return (
               <div key={unit.unit_number} className="space-y-md">
