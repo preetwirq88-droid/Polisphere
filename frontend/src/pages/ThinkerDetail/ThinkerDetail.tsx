@@ -158,25 +158,29 @@ export const ThinkerDetail: React.FC = () => {
 
         <div className="relative grid grid-cols-1 md:grid-cols-12 gap-0">
           {/* Portrait */}
-          <div className="md:col-span-4 relative h-72 md:h-auto min-h-[360px] overflow-hidden bg-surface-container">
-            <img
-              src={thinker.portrait_url}
-              alt={thinker.name}
-              className="portrait-img w-full h-full object-cover object-top transition-transform duration-700"
-              onError={(e) => {
-                const el = e.target as HTMLImageElement;
-                el.style.display = 'none';
-                const parent = el.parentElement;
-                if (parent) {
-                  parent.innerHTML = `<div class="w-full h-full flex flex-col items-center justify-center bg-surface-container-high gap-4">
-                    <span class="material-symbols-outlined text-[80px] text-outline">person</span>
-                    <span class="text-on-surface-variant font-label-md text-sm">${thinker.name}</span>
-                  </div>`;
-                }
-              }}
-            />
+          <div className="md:col-span-4 relative h-72 md:h-auto min-h-[360px] overflow-hidden bg-surface-container flex items-center justify-center">
+            {/* Fallback silhouette if image fails or is loading */}
+            <div className="absolute inset-0 bg-gradient-to-br from-primary/15 via-secondary/10 to-primary/5 flex flex-col items-center justify-center gap-2">
+              <span className="material-symbols-outlined text-[80px] text-secondary/40 select-none">
+                account_circle
+              </span>
+              <span className="text-on-surface-variant font-label-md text-sm select-none">{thinker.name}</span>
+            </div>
+
+            {(thinker.portrait_url || thinker.slug) && (
+              <img
+                src={thinker.portrait_url || `/images/thinkers/${thinker.slug}.jpg`}
+                alt={`Portrait of ${thinker.name}`}
+                loading="eager"
+                decoding="async"
+                className="portrait-img w-full h-full object-cover object-top transition-transform duration-700 relative z-10"
+                onError={(e) => {
+                  (e.target as HTMLElement).style.display = 'none';
+                }}
+              />
+            )}
             {/* Gradient overlay on portrait */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent md:bg-gradient-to-r md:from-transparent md:to-surface/40" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent md:bg-gradient-to-r md:from-transparent md:to-surface/40 z-20 pointer-events-none" />
 
             {/* Mobile name overlay */}
             <div className="absolute bottom-0 left-0 right-0 p-md md:hidden">

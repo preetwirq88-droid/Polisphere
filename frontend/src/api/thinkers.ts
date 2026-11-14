@@ -20,7 +20,7 @@ export const DEFAULT_THINKERS: Thinker[] = [
     id: 'plato',
     slug: 'plato',
     name: 'Plato',
-    portrait_url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Plato_Silanion_Musei_Capitolini_MC1377.jpg/440px-Plato_Silanion_Musei_Capitolini_MC1377.jpg',
+    portrait_url: '/images/thinkers/plato.jpg',
     contribution: 'Classical Political Philosophy & Ideal State',
     key_works: [
       'The Republic (c. 375 BCE)',
@@ -36,7 +36,7 @@ export const DEFAULT_THINKERS: Thinker[] = [
     id: 'aristotle',
     slug: 'aristotle',
     name: 'Aristotle',
-    portrait_url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Aristotle_Altemps_Inv8575.jpg/440px-Aristotle_Altemps_Inv8575.jpg',
+    portrait_url: '/images/thinkers/aristotle.jpg',
     contribution: 'Constitutional Theory & The Master Science',
     key_works: [
       'Politics (c. 335 BCE)',
@@ -51,7 +51,7 @@ export const DEFAULT_THINKERS: Thinker[] = [
     id: 'niccolo-machiavelli',
     slug: 'niccolo-machiavelli',
     name: 'Niccolò Machiavelli',
-    portrait_url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Portrait_of_Niccol%C3%B2_Machiavelli_by_Santi_di_Tito.jpg/440px-Portrait_of_Niccol%C3%B2_Machiavelli_by_Santi_di_Tito.jpg',
+    portrait_url: '/images/thinkers/niccolo-machiavelli.jpg',
     contribution: 'Realist Statecraft & Autonomy of Politics',
     key_works: [
       'The Prince (1532)',
@@ -66,7 +66,7 @@ export const DEFAULT_THINKERS: Thinker[] = [
     id: 'thomas-hobbes',
     slug: 'thomas-hobbes',
     name: 'Thomas Hobbes',
-    portrait_url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d8/Thomas_Hobbes_%28portrait%29.jpg/440px-Thomas_Hobbes_%28portrait%29.jpg',
+    portrait_url: '/images/thinkers/thomas-hobbes.jpg',
     contribution: 'Social Contract & Absolute Sovereignty',
     key_works: [
       'Leviathan (1651)',
@@ -81,7 +81,7 @@ export const DEFAULT_THINKERS: Thinker[] = [
     id: 'john-locke',
     slug: 'john-locke',
     name: 'John Locke',
-    portrait_url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/JohnLocke.png/440px-JohnLocke.png',
+    portrait_url: '/images/thinkers/john-locke.jpg',
     contribution: 'Natural Rights & Limited Government',
     key_works: [
       'Two Treatises of Government (1689)',
@@ -96,7 +96,7 @@ export const DEFAULT_THINKERS: Thinker[] = [
     id: 'jean-jacques-rousseau',
     slug: 'jean-jacques-rousseau',
     name: 'Jean-Jacques Rousseau',
-    portrait_url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Jean-Jacques_Rousseau_%28painted_portrait%29.jpg/440px-Jean-Jacques_Rousseau_%28painted_portrait%29.jpg',
+    portrait_url: '/images/thinkers/jean-jacques-rousseau.jpg',
     contribution: 'General Will & Popular Sovereignty',
     key_works: [
       'The Social Contract (1762)',
@@ -111,7 +111,7 @@ export const DEFAULT_THINKERS: Thinker[] = [
     id: 'john-stuart-mill',
     slug: 'john-stuart-mill',
     name: 'John Stuart Mill',
-    portrait_url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/John_Stuart_Mill_by_London_Stereoscopic_Co%2C_c1870.jpg/440px-John_Stuart_Mill_by_London_Stereoscopic_Co%2C_c1870.jpg',
+    portrait_url: '/images/thinkers/john-stuart-mill.jpg',
     contribution: 'Harm Principle & Utilitarian Liberty',
     key_works: [
       'On Liberty (1859)',
@@ -127,7 +127,7 @@ export const DEFAULT_THINKERS: Thinker[] = [
     id: 'karl-marx',
     slug: 'karl-marx',
     name: 'Karl Marx',
-    portrait_url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Karl_Marx_001.jpg/440px-Karl_Marx_001.jpg',
+    portrait_url: '/images/thinkers/karl-marx.jpg',
     contribution: 'Historical Materialism & Class Struggle',
     key_works: [
       'The Communist Manifesto (1848)',
@@ -143,7 +143,7 @@ export const DEFAULT_THINKERS: Thinker[] = [
     id: 'mahatma-gandhi',
     slug: 'mahatma-gandhi',
     name: 'Mahatma Gandhi',
-    portrait_url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Mahatma-Gandhi%2C_studio%2C_1931.jpg/440px-Mahatma-Gandhi%2C_studio%2C_1931.jpg',
+    portrait_url: '/images/thinkers/mahatma-gandhi.jpg',
     contribution: 'Satyagraha & Non-violent Resistance',
     key_works: [
       'Hind Swaraj (1909)',
@@ -158,7 +158,7 @@ export const DEFAULT_THINKERS: Thinker[] = [
     id: 'b-r-ambedkar',
     slug: 'b-r-ambedkar',
     name: 'B. R. Ambedkar',
-    portrait_url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Dr._Bhimrao_Ambedkar.jpg/440px-Dr._Bhimrao_Ambedkar.jpg',
+    portrait_url: '/images/thinkers/b-r-ambedkar.jpg',
     contribution: 'Constitutional Democracy & Annihilation of Caste',
     key_works: [
       'Annihilation of Caste (1936)',
@@ -174,7 +174,7 @@ export const DEFAULT_THINKERS: Thinker[] = [
     id: 'john-rawls',
     slug: 'john-rawls',
     name: 'John Rawls',
-    portrait_url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/John_rawls.jpg/440px-John_rawls.jpg',
+    portrait_url: '/images/thinkers/john-rawls.jpg',
     contribution: 'Justice as Fairness & The Veil of Ignorance',
     key_works: [
       'A Theory of Justice (1971)',
@@ -190,7 +190,7 @@ export const DEFAULT_THINKERS: Thinker[] = [
     id: 'kautilya',
     slug: 'kautilya',
     name: 'Kautilya (Chanakya)',
-    portrait_url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Chanakya_artistic_depiction.jpg/440px-Chanakya_artistic_depiction.jpg',
+    portrait_url: '/images/thinkers/kautilya.jpg',
     contribution: 'Arthashastra & Realist Statecraft',
     key_works: [
       'Arthashastra (c. 300 BCE)',
@@ -204,7 +204,7 @@ export const DEFAULT_THINKERS: Thinker[] = [
     id: 'mary-wollstonecraft',
     slug: 'mary-wollstonecraft',
     name: 'Mary Wollstonecraft',
-    portrait_url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Mary_Wollstonecraft_by_John_Opie_%28c._1797%29.jpg/440px-Mary_Wollstonecraft_by_John_Opie_%28c._1797%29.jpg',
+    portrait_url: '/images/thinkers/mary-wollstonecraft.jpg',
     contribution: "Feminist Political Philosophy & Women's Rights",
     key_works: [
       'A Vindication of the Rights of Woman (1792)',
@@ -216,17 +216,35 @@ export const DEFAULT_THINKERS: Thinker[] = [
   },
 ];
 
+export const getThinkerPortraitUrl = (thinker: { slug?: string; portrait_url?: string }): string => {
+  if (
+    thinker.portrait_url &&
+    !thinker.portrait_url.includes('upload.wikimedia.org') &&
+    !thinker.portrait_url.includes('440px-')
+  ) {
+    return thinker.portrait_url;
+  }
+  const normalizedSlug = thinker.slug === 'j-s-mill' ? 'john-stuart-mill' : (thinker.slug || '');
+  const match = DEFAULT_THINKERS.find((t) => t.slug === thinker.slug || t.slug === normalizedSlug);
+  return match?.portrait_url || (thinker.slug ? `/images/thinkers/${thinker.slug}.jpg` : '');
+};
+
 export const getThinkers = async (): Promise<Thinker[]> => {
   try {
     const res = await api.get('/thinkers');
     if (Array.isArray(res.data) && res.data.length > 0) {
+      const enhancedApiData: Thinker[] = res.data.map((item: Thinker) => ({
+        ...item,
+        portrait_url: getThinkerPortraitUrl(item),
+      }));
+
       const apiSlugs = new Set(res.data.map((t: Thinker) => t.slug));
       // Normalize alias slugs (e.g. j-s-mill and john-stuart-mill)
       if (apiSlugs.has('j-s-mill')) apiSlugs.add('john-stuart-mill');
       if (apiSlugs.has('john-stuart-mill')) apiSlugs.add('j-s-mill');
 
       const remainingDefaults = DEFAULT_THINKERS.filter((t) => !apiSlugs.has(t.slug));
-      return [...res.data, ...remainingDefaults];
+      return [...enhancedApiData, ...remainingDefaults];
     }
     return DEFAULT_THINKERS;
   } catch (err) {
@@ -236,14 +254,20 @@ export const getThinkers = async (): Promise<Thinker[]> => {
 };
 
 export const getThinkerBySlug = async (slug: string): Promise<Thinker> => {
+  const normalizedSlug = slug === 'j-s-mill' ? 'john-stuart-mill' : slug;
+  const fallback = DEFAULT_THINKERS.find(
+    (t) => t.slug === slug || t.slug === normalizedSlug
+  );
   try {
     const res = await api.get(`/thinkers/${slug}`);
+    if (res.data) {
+      return {
+        ...res.data,
+        portrait_url: getThinkerPortraitUrl(res.data),
+      };
+    }
     return res.data;
   } catch (err) {
-    const normalizedSlug = slug === 'j-s-mill' ? 'john-stuart-mill' : slug;
-    const fallback = DEFAULT_THINKERS.find(
-      (t) => t.slug === slug || t.slug === normalizedSlug
-    );
     if (fallback) return fallback;
     throw err;
   }
