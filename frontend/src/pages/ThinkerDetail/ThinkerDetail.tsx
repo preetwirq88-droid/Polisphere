@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import { getThinkerBySlug, getThinkers } from '../../api/thinkers';
+import { getThinkerBySlug, getThinkers, DEFAULT_THINKERS } from '../../api/thinkers';
 import { getNotes } from '../../api/notes';
 import { Breadcrumb } from '../../components/Breadcrumb/Breadcrumb';
 import { NoteCard } from '../../components/NoteCard/NoteCard';
@@ -134,7 +134,9 @@ export const ThinkerDetail: React.FC = () => {
           n.keywords?.some((k) => thinker.name.toLowerCase().includes(k.toLowerCase()))
       );
 
-  const otherThinkers = allThinkers.filter((t) => t.slug !== slug).slice(0, 3);
+  const otherThinkers = (allThinkers.length > 0 ? allThinkers : DEFAULT_THINKERS)
+    .filter((t) => t.slug !== slug)
+    .slice(0, 3);
 
   return (
     <div className="max-w-[1280px] mx-auto px-margin-mobile md:px-margin-desktop py-lg space-y-2xl">

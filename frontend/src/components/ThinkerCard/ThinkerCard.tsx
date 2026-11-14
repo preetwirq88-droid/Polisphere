@@ -10,18 +10,28 @@ export const ThinkerCard: React.FC<ThinkerCardProps> = ({ thinker }) => {
   return (
     <Link
       to={`/thinkers/${thinker.slug}`}
+      id={`thinker-card-${thinker.slug}`}
       className="group bg-surface border border-outline-variant rounded-xl overflow-hidden shadow-[0px_4px_20px_rgba(15,23,42,0.05)] hover:border-secondary hover:shadow-lg transition-all flex flex-col"
     >
-      <div className="h-64 bg-surface-container overflow-hidden relative">
-        <img
-          src={thinker.portrait_url}
-          alt={thinker.name}
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-          onError={(e) => {
-            (e.target as HTMLElement).style.display = 'none';
-          }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/20 to-transparent flex items-end p-md">
+      <div className="h-64 bg-surface-container overflow-hidden relative flex items-center justify-center">
+        {/* Fallback silhouette if image fails or is absent */}
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/15 via-secondary/10 to-primary/5 flex items-center justify-center">
+          <span className="material-symbols-outlined text-[64px] text-secondary/40 select-none">
+            account_circle
+          </span>
+        </div>
+
+        {thinker.portrait_url && (
+          <img
+            src={thinker.portrait_url}
+            alt={thinker.name}
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 relative z-10"
+            onError={(e) => {
+              (e.target as HTMLElement).style.display = 'none';
+            }}
+          />
+        )}
+        <div className="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/20 to-transparent flex items-end p-md z-20 pointer-events-none">
           <span className="text-white font-caption text-caption bg-secondary/80 backdrop-blur-sm px-2.5 py-1 rounded">
             {thinker.contribution}
           </span>

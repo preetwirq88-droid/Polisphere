@@ -1,27 +1,70 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import { getThinkers } from '../../api/thinkers';
+import { getThinkers, DEFAULT_THINKERS } from '../../api/thinkers';
 import { ThinkerCard } from '../../components/ThinkerCard/ThinkerCard';
 import { Breadcrumb } from '../../components/Breadcrumb/Breadcrumb';
 
 export const ThinkerListing: React.FC = () => {
-  const [search, setSearch] = useState('');
-  const [selectedContribution, setSelectedContribution] = useState('all');
+  const [searchParams, setSearchParams] = useSearchParams();
+  const queryFromUrl = searchParams.get('q') || '';
+  const traditionFromUrl = searchParams.get('tradition') || 'all';
 
-  const { data: thinkers = [], isLoading, isError } = useQuery({
+  const [search, setSearch] = useState(queryFromUrl);
+  const [selectedContribution, setSelectedContribution] = useState(traditionFromUrl);
+
+  // Sync search state if URL ?q= or ?tradition= parameters change
+  useEffect(() => {
+    setSearch(queryFromUrl);
+  }, [queryFromUrl]);
+
+  useEffect(() => {
+    setSelectedContribution(traditionFromUrl);
+  }, [traditionFromUrl]);
+
+  const { data: thinkers = DEFAULT_THINKERS, isLoading, isError, refetch } = useQuery({
     queryKey: ['thinkers-list-page'],
     queryFn: getThinkers,
-    retry: 1,
+    initialData: DEFAULT_THINKERS,
   });
+
+  const handleSearchChange = (val: string) => {
+    setSearch(val);
+    const newParams = new URLSearchParams(searchParams);
+    if (val.trim()) {
+      newParams.set('q', val);
+    } else {
+      newParams.delete('q');
+    }
+    setSearchParams(newParams, { replace: true });
+  };
+
+  const handleContributionChange = (val: string) => {
+    setSelectedContribution(val);
+    const newParams = new URLSearchParams(searchParams);
+    if (val !== 'all') {
+      newParams.set('tradition', val);
+    } else {
+      newParams.delete('tradition');
+    }
+    setSearchParams(newParams, { replace: true });
+  };
+
+  const handleResetFilters = () => {
+    setSearch('');
+    setSelectedContribution('all');
+    setSearchParams({}, { replace: true });
+  };
 
   // Derive unique contribution labels for filter
   const contributionOptions = useMemo(() => {
-    const unique = Array.from(new Set(thinkers.map((t) => t.contribution).filter(Boolean)));
+    const list = Array.isArray(thinkers) && thinkers.length > 0 ? thinkers : DEFAULT_THINKERS;
+    const unique = Array.from(new Set(list.map((t) => t.contribution).filter(Boolean)));
     return unique.sort();
   }, [thinkers]);
 
   const filtered = useMemo(() => {
-    let list = thinkers;
+    let list = Array.isArray(thinkers) && thinkers.length > 0 ? thinkers : DEFAULT_THINKERS;
     if (search.trim()) {
       const q = search.toLowerCase();
       list = list.filter(
@@ -29,7 +72,8 @@ export const ThinkerListing: React.FC = () => {
           t.name.toLowerCase().includes(q) ||
           t.contribution.toLowerCase().includes(q) ||
           t.bio.toLowerCase().includes(q) ||
-          t.key_works.some((w) => w.toLowerCase().includes(q))
+          (t.key_works || []).some((w) => w.toLowerCase().includes(q)) ||
+          t.slug.toLowerCase().includes(q)
       );
     }
     if (selectedContribution !== 'all') {
@@ -63,13 +107,13 @@ export const ThinkerListing: React.FC = () => {
             type="text"
             id="thinker-search"
             value={search}
-            onChange={(e) => setSearch(e.target.value)}
+            onChange={(e) => handleSearchChange(e.target.value)}
             placeholder="Search by name, contribution, key works…"
             className="w-full pl-10 pr-4 h-[44px] bg-surface border border-outline-variant rounded-xl text-sm font-body-md text-on-surface placeholder:text-outline focus:outline-none focus:border-secondary focus:ring-1 focus:ring-secondary transition-colors"
           />
           {search && (
             <button
-              onClick={() => setSearch('')}
+              onClick={() => handleSearchChange('')}
               className="absolute right-3 top-1/2 -translate-y-1/2 text-outline hover:text-on-surface transition-colors"
               aria-label="Clear search"
             >
@@ -86,8 +130,8 @@ export const ThinkerListing: React.FC = () => {
           <select
             id="thinker-contribution-filter"
             value={selectedContribution}
-            onChange={(e) => setSelectedContribution(e.target.value)}
-            className="appearance-none pl-9 pr-10 h-[44px] bg-surface border border-outline-variant rounded-xl text-sm font-body-md text-on-surface focus:outline-none focus:border-secondary focus:ring-1 focus:ring-secondary transition-colors min-w-[180px] cursor-pointer"
+            onChange={(e) => handleContributionChange(e.target.value)}
+            className="appearance-none pl-9 pr-10 h-[44px] bg-surface border border-outline-variant rounded-xl text-sm font-body-md text-on-surface focus:outline-none focus:border-secondary focus:ring-1 focus:ring-secondary transition-colors min-w-[200px] cursor-pointer"
           >
             <option value="all">All Traditions</option>
             {contributionOptions.map((c) => (
@@ -102,7 +146,7 @@ export const ThinkerListing: React.FC = () => {
         {/* Reset button — only show when filters active */}
         {(search || selectedContribution !== 'all') && (
           <button
-            onClick={() => { setSearch(''); setSelectedContribution('all'); }}
+            onClick={handleResetFilters}
             className="h-[44px] px-4 border border-outline-variant text-on-surface-variant rounded-xl text-sm font-label-md hover:bg-surface-container transition-colors whitespace-nowrap flex items-center gap-1.5"
           >
             <span className="material-symbols-outlined text-[16px]">restart_alt</span>
@@ -114,31 +158,31 @@ export const ThinkerListing: React.FC = () => {
       {/* Results Count */}
       <div className="flex items-center justify-between border-b border-outline-variant pb-2">
         <h2 className="font-headline-sm text-headline-sm text-on-surface">
-          {isLoading ? 'Loading thinkers…' : `${filtered.length} Thinker${filtered.length !== 1 ? 's' : ''} Found`}
+          {isLoading && thinkers.length === 0 ? 'Loading thinkers…' : `${filtered.length} Thinker${filtered.length !== 1 ? 's' : ''} Found`}
         </h2>
-        {!isLoading && filtered.length > 0 && (
+        {filtered.length > 0 && (
           <span className="text-caption text-on-surface-variant font-caption">
-            Sorted A–Z by name
+            Comprehensive Directory
           </span>
         )}
       </div>
 
       {/* Grid */}
-      {isLoading ? (
+      {isLoading && thinkers.length === 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-gutter">
           {[1, 2, 3, 4, 5, 6].map((i) => (
             <div key={i} className="h-72 rounded-xl bg-surface-container animate-pulse" />
           ))}
         </div>
-      ) : isError ? (
+      ) : isError && thinkers.length === 0 ? (
         <div className="bg-surface border border-error/30 rounded-xl p-xl text-center space-y-sm">
           <span className="material-symbols-outlined text-[48px] text-error block">wifi_off</span>
           <p className="font-headline-sm text-headline-sm text-on-surface">Could not load thinkers</p>
           <p className="font-body-md text-on-surface-variant">
-            The server is unavailable or still starting up. Please refresh in a moment.
+            The server could not be reached. Please check your connection or try again.
           </p>
           <button
-            onClick={() => window.location.reload()}
+            onClick={() => refetch()}
             className="inline-flex items-center gap-2 mt-2 h-[40px] px-md bg-secondary text-white rounded-lg font-label-md text-sm hover:opacity-90 transition-opacity"
           >
             <span className="material-symbols-outlined text-[18px]">refresh</span>
@@ -150,9 +194,9 @@ export const ThinkerListing: React.FC = () => {
           <span className="material-symbols-outlined text-[48px] text-outline block">person_search</span>
           <p className="font-headline-sm text-headline-sm text-on-surface">No thinkers match your search</p>
           <p className="font-body-md text-on-surface-variant">
-            Try a different keyword or{' '}
+            No thinkers found matching &ldquo;{search}&rdquo;. Try another search term or{' '}
             <button
-              onClick={() => { setSearch(''); setSelectedContribution('all'); }}
+              onClick={handleResetFilters}
               className="text-secondary hover:underline font-semibold"
             >
               reset the filters
@@ -163,7 +207,7 @@ export const ThinkerListing: React.FC = () => {
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-gutter stagger animate-fade-in-up">
           {filtered.map((thinker) => (
-            <ThinkerCard key={thinker.id} thinker={thinker} />
+            <ThinkerCard key={thinker.id || thinker.slug} thinker={thinker} />
           ))}
         </div>
       )}
