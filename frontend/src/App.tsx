@@ -42,7 +42,7 @@ export const App: React.FC = () => {
                 <Route path="/thinkers" element={<ThinkerListing />} />
                 <Route path="/thinkers/:slug" element={<ThinkerDetail />} />
                 <Route path="/exam-prep/important-questions" element={<ImportantQuestions />} />
-                <Route path="/exam-prep/pyqs" element={<ComingSoon />} />
+                <Route path="/exam-prep/pyqs" element={<ImportantQuestions initialCategory="pyq" />} />
                 <Route path="/resources" element={<ComingSoon />} />
 
                 {/* Admin Routes */}
